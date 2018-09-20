@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
 import LoginContainer from './containers/LoginContainer'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
@@ -13,11 +13,10 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//         users: state.users
-//     };
-// };
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+};
 
-// export default connect(mapStateToProps)(App);
-export default App
+export default connect(mapStateToProps)(App);
