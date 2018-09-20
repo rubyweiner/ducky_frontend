@@ -3,9 +3,11 @@ import { Button } from 'semantic-ui-react'
 
 const SignUpButton = props => {
   return (
-    <Button basic fluid>
+
+    <Button basic fluid onClick={() => props.onClick()}>
       Sign Up
     </Button>
+
   )
 }
 
