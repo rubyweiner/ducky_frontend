@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import LoginContainer from './containers/LoginContainer'
+// import { connect } from 'react-redux'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <LoginContainer />
       </div>
     );
   }
 }
 
-export default App;
+// const mapStateToProps = state => {
+//     return {
+//         users: state.users
+//     };
+// };
+
+// export default connect(mapStateToProps)(App);
+export default App
