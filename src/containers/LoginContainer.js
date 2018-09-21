@@ -117,7 +117,7 @@ class LoginContainer extends Component {
             />
           :
           <Segment padded>
-            <Card.Header as="h2" centered>Welcome to Ducky</Card.Header>
+            <Card.Header as="h2" id="loginTitle">Welcome to Ducky</Card.Header>
             <Card.Content>
               <SignInButton onClick={this.handleSignIn}/>
               <Divider horizontal>Or</Divider>
