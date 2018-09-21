@@ -1,12 +1,12 @@
 import React from 'react'
 import { Card } from 'semantic-ui-react'
 
-const Bio = props => {
+const Map = props => {
   return (
-    <Card padded>
-      <h3>{props.bio}</h3>
+    <Card>
+      MAP
     </Card>
   )
 }
 
-export default Bio
+export default Map

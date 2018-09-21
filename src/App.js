@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './index.css';
 import LoginContainer from './containers/LoginContainer'
 import NavBar from './containers/NavBar'
-import Profile from './containers/Profile'
+import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
 import { setCurrentUser } from './actions/actions.js'
@@ -11,10 +11,8 @@ import { setCurrentUser } from './actions/actions.js'
 class App extends Component {
 
   logOut = () => {
-    console.log(this.props.user)
     localStorage.clear()
     this.props.setCurrentUser({})
-    console.log(this.props.user)
   }
 
   render() {
@@ -27,8 +25,8 @@ class App extends Component {
 
     const DefaultRouting = () => (
      <div className="container">
-       <NavBar />
-       <Route exact path="/profile" component={Profile} />
+       <NavBar onClick={this.logOut}/>
+       <Route exact path="/profile" component={ProfileContainer} />
        <Route exact path="/home" component={HomePageContainer} />
      </div>
     )
@@ -38,7 +36,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/(login)" component={LoginRouting}/>
-            <Route component={DefaultRouting}/>
+            {this.props.user ? <Route component={DefaultRouting}/> : null}
           </Switch>
         </BrowserRouter>
       </div>
@@ -56,14 +54,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-
-//
-// {this.props.user ?
-//
-//   <Switch>
-//     <Route exact path="/profile" render={props => <NavBar {...props} logOut={this.logOut}/>} />
-//     <Route exact path="/home" render={props => <HomePageContainer {...props} logOut={this.logOut}/>} />
-//   </Switch>
-// : null
-// }

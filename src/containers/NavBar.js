@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Button } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
-import Profile from './Profile'
+import ProfileContainer from './ProfileContainer'
 
 const duckyIcon = 'https://cdn3.iconfinder.com/data/icons/solidix-toys/128/toy_children-15-512.png'
 
@@ -38,6 +38,7 @@ class NavBar extends Component {
         to="/login"
         className="ui item"
         activeClassName="ui active item"
+        onClick={() => this.props.onClick()}
       >
         LogOut
       </NavLink>
