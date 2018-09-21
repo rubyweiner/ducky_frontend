@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Segment} from 'semantic-ui-react'
+import { Button, Form, Segment, Header} from 'semantic-ui-react'
 
 class LoginForm extends Component {
   state = {
@@ -10,7 +10,7 @@ class LoginForm extends Component {
     return (
       this.state.newUserMode ?
         <Segment padded>
-          <h2>Sign Up</h2>
+          <Header as='h2'> Sign Up </Header>
           <Form onSubmit={(event) => this.props.handleNewUser(event)}>
              <Form.Field>
                <label>Email</label>
@@ -20,13 +20,15 @@ class LoginForm extends Component {
                <label>Password</label>
                <input placeholder='password' />
              </Form.Field>
-             <Button type='submit'>Sign Up</Button>
-             <Button onClick={() => this.props.backClick()}>Back</Button>
+             <div className='ui two buttons'>
+               <Button basic color="grey" type='submit'>Sign Up</Button>
+               <Button basic color="grey" onClick={() => this.props.backClick()}>Back</Button>
+              </div>
           </Form>
         </Segment>
       :
         <Segment padded>
-          <h2>Sign In</h2>
+          <Header as='h2'> Sign In </Header>
           <Form onSubmit={(event) => this.props.handleExistingUser(event)}>
              <Form.Field>
                <label>Email</label>
@@ -36,8 +38,10 @@ class LoginForm extends Component {
                <label>Password</label>
                <input placeholder='password' />
              </Form.Field>
-             <Button type='submit'>Sign In</Button>
-             <Button onClick={() => this.props.backClick()}>Back</Button>
+             <div className='ui two buttons'>
+               <Button basic color="grey" type='submit'>Sign In</Button>
+               <Button basic color="grey" onClick={() => this.props.backClick()}>Back</Button>
+             </div>
           </Form>
         </Segment>
 

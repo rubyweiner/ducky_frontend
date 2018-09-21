@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import SignInButton from '../components/SignInButton'
-import SignUpButton from '../components/SignUpButton'
-import LoginForm from '../components/LoginForm'
-import { Card, Segment, Divider, Header } from 'semantic-ui-react'
+import SignInButton from '../components/login/SignInButton'
+import SignUpButton from '../components/login/SignUpButton'
+import LoginForm from '../components/login/LoginForm'
+import { Card, Segment, Divider, Header, Container } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../actions/actions.js'
 
@@ -85,12 +85,19 @@ class LoginContainer extends Component {
         }
       )
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 401) {
+          alert("Incorrect email or password. Please try again.")
+        } else {
+          return response.json()
+        }
+      })
       .then(json => {
-        console.log(json.user);
-        this.props.setCurrentUser(json.user);
-        console.log('new state', this.props.user);
-        localStorage.setItem("token", json.jwt);
+        if (json !== undefined){
+          this.props.setCurrentUser(json.user);
+          localStorage.setItem("token", json.jwt);
+          this.props.history.push('/profile')
+        }
       })
   }
 
@@ -98,24 +105,29 @@ class LoginContainer extends Component {
   render() {
 
     return(
-      <Card centered>
-        {this.state.formMode ?
-          <LoginForm
-            handleNewUser={this.handleNewUser}
-            handleExistingUser={this.handleExistingUser}
-            newUserMode={this.state.newUserMode}
-            backClick={this.handleBackClick}
-          />
-        :
-        <Segment padded>
-        <Header as='h1' textAlign='center'> Ducky </Header>
-          <SignInButton onClick={this.handleSignIn}/>
-        <Divider horizontal>Or</Divider>
-          <SignUpButton onClick={this.handleSignUp}/>
-        </Segment>
-        }
-      </Card>
-
+    <div className="background">
+      <div className="center">
+        <Card centered>
+          {this.state.formMode ?
+            <LoginForm
+              handleNewUser={this.handleNewUser}
+              handleExistingUser={this.handleExistingUser}
+              newUserMode={this.state.newUserMode}
+              backClick={this.handleBackClick}
+            />
+          :
+          <Segment padded>
+            <Card.Header as="h2" centered>Welcome to Ducky</Card.Header>
+            <Card.Content>
+              <SignInButton onClick={this.handleSignIn}/>
+              <Divider horizontal>Or</Divider>
+              <SignUpButton onClick={this.handleSignUp}/>
+            </Card.Content>
+          </Segment>
+          }
+        </Card>
+      </div>
+    </div>
     )
   }
 }
