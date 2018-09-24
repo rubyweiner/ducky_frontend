@@ -6,13 +6,14 @@ import NavBar from './containers/NavBar'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
-import { setCurrentUser } from './actions/actions.js'
+import { setCurrentUser, setCurrentProfile } from './actions/actions.js'
 
 class App extends Component {
 
   logOut = () => {
     localStorage.clear()
     this.props.setCurrentUser({})
+    this.props.setCurrentProfile({})
   }
 
   render() {
@@ -36,7 +37,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/(login)" component={LoginRouting}/>
-            {this.props.user ? <Route component={DefaultRouting}/> : null}
+            {this.props.user.id ? <Route component={DefaultRouting}/> : null}
           </Switch>
         </BrowserRouter>
       </div>
@@ -45,12 +46,15 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user }
+  return { user: state.user, profile: state.profile }
 }
 
 
 const mapDispatchToProps = dispatch => {
-  return { setCurrentUser: user => dispatch(setCurrentUser(user)) }
+  return {
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

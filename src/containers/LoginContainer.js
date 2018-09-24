@@ -4,7 +4,7 @@ import SignUpButton from '../components/login/SignUpButton'
 import LoginForm from '../components/login/LoginForm'
 import { Card, Segment, Divider, Header, Container } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { setCurrentUser } from '../actions/actions.js'
+import { setCurrentUser, setCurrentProfile } from '../actions/actions.js'
 
 class LoginContainer extends Component {
   state = {
@@ -61,7 +61,13 @@ class LoginContainer extends Component {
       })
     })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        console.log(json)
+        this.props.setCurrentUser(json.user);
+        this.props.setCurrentProfile(null)
+        localStorage.setItem("token", json.jwt);
+        this.props.history.push('/profile')
+      })
   }
 
   handleExistingUser = (event) => {
@@ -95,6 +101,7 @@ class LoginContainer extends Component {
       .then(json => {
         if (json !== undefined){
           this.props.setCurrentUser(json.user);
+          this.props.setCurrentProfile(json.user.profile)
           localStorage.setItem("token", json.jwt);
           this.props.history.push('/profile')
         }
@@ -137,7 +144,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return { setCurrentUser: user => dispatch(setCurrentUser(user)) }
+  return {
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
