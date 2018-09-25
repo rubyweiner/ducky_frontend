@@ -1,12 +1,17 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Header, Icon } from 'semantic-ui-react'
 
 const Bio = props => {
   return (
-    <Card padded>
-      <h3>{props.bio}</h3>
-    </Card>
+
+      <p> {props.bio}  {<Icon name='pencil' size="small" onClick={() => props.onClick()}/>}</p>
+
   )
 }
 
-export default Bio
+const mapStateToProps = state => {
+  return { user: state.user, profile: state.profile }
+}
+
+export default connect(mapStateToProps)(Bio)

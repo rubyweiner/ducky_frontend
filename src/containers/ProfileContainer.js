@@ -10,17 +10,13 @@ class ProfileContainer extends Component {
 
   createProfile = (event) => {
     event.preventDefault()
-    let first_name = event.currentTarget[0].value
-    let last_name = event.currentTarget[1].value
-    let bio = event.currentTarget[2].value
-    let profile_pic = event.currentTarget[3].value
-    let cover_photo = event.currentTarget[4].value
-    this.postProfile(first_name, last_name, bio, profile_pic, cover_photo)
+    let userData = event.currentTarget
+    this.postProfile(userData)
   }
 
-  postProfile = (first_name, last_name, bio, profile_pic, cover_photo) => {
+  postProfile = (userData) => {
     let user = this.props.user
-
+    debugger
     fetch('http://localhost:3000/profiles', {
       method: "POST",
       headers: {
@@ -29,11 +25,15 @@ class ProfileContainer extends Component {
       },
       body: JSON.stringify({
         profile: {
-          first_name: first_name,
-          last_name: last_name,
-          bio: bio,
-          profile_pic: profile_pic,
-          cover_photo: cover_photo,
+          first_name: userData[0].value,
+          last_name: userData[1].value,
+          hometown: userData[2].value,
+          current_location: userData[3].value,
+          bio: userData[4].value,
+          profile_pic: userData[5].value,
+          cover_photo: userData[6].value,
+          github: userData[7].value,
+          dob: userData[9].value,
           user_id: user.id
         }
       })
