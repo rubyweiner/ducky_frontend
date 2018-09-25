@@ -15,8 +15,8 @@ class ProfileContainer extends Component {
   }
 
   postProfile = (userData) => {
+    // doesnt work properly
     let user = this.props.user
-    debugger
     fetch('http://localhost:3000/profiles', {
       method: "POST",
       headers: {
@@ -27,13 +27,15 @@ class ProfileContainer extends Component {
         profile: {
           first_name: userData[0].value,
           last_name: userData[1].value,
-          hometown: userData[2].value,
-          current_location: userData[3].value,
-          bio: userData[4].value,
-          profile_pic: userData[5].value,
-          cover_photo: userData[6].value,
-          github: userData[7].value,
-          dob: userData[9].value,
+          dob: userData[2].value,
+          education: userData[3].value,
+          hometown: userData[5].value,
+          current_location: userData[6].value,
+          bio: userData[7].value,
+          profile_pic: userData[8].value,
+          cover_photo: userData[9].value,
+          github: userData[10].value,
+          company: userData[11].value,
           user_id: user.id
         }
       })

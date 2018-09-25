@@ -17,7 +17,15 @@ class ProfileForm extends Component {
             <Form.Group widths='equal'>
               <Form.Field control={Input} label='First Name' placeholder='First Name' />
               <Form.Field control={Input} label='Last Name' placeholder='Last Name' />
+              <Form.Field>
+                <label>Date of Birth</label>
+                <input type="date" />
+              </Form.Field>
+            </Form.Group>
+            <Form.Group widths='equal'>
+              <Form.Field control={Input} label='Education' placeholder='Education' />
               <Form.Field control={Select} label='Occupation' options={options} placeholder='Occupation' />
+              <Form.Field control={Input} label='Company' placeholder='Company' />
             </Form.Group>
             <Form.Field>
               <label>Hometown</label>
@@ -25,7 +33,7 @@ class ProfileForm extends Component {
             </Form.Field>
             <Form.Field>
               <label>Current Location</label>
-              <input placeholder='CurrentLocation'/>
+              <input placeholder='Current Location'/>
             </Form.Field>
             <Form.Field>
               <label>Bio</label>
@@ -48,10 +56,7 @@ class ProfileForm extends Component {
               <label>Blog</label>
               <input placeholder='Blog' />
             </Form.Field>
-            <Form.Field>
-              <label>Date of Birth</label>
-              <input type="date" />
-            </Form.Field>
+
             <Button basic type='submit'>Create Profile</Button>
         </Form>
       </Segment>

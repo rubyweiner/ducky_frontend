@@ -7,12 +7,14 @@ const PersonalInfo = props => {
     <List >
       <List.Item>Based in <a href>{props.profile.current_location}</a></List.Item>
       <List.Item>From <a href>{props.profile.hometown}</a></List.Item>
-      <List.Item>Studied at...</List.Item>
-      {props.profile.dob ?
-        <List.Item icon='birthday cake' content={props.profile.dob}/>
+      <List.Item>Studied at {props.profile.education}</List.Item>
+      {props.profile.company ?
+        <List.Item icon='brief case' content={props.profile.company}/>
       :
         null
       }
+      <List.Item icon='birthday cake' content={props.profile.dob}/>
+
 
     </List>
   )
