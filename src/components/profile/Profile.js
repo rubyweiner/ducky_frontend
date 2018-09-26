@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile } from '../../actions/actions.js'
-import { Container, Image, Grid, Segment, Divider, Header, Button, Icon } from 'semantic-ui-react'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills } from '../../actions/actions.js'
+import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import Bio from './Bio'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
 import PersonalInfoForm from './PersonalInfoForm'
 import ContactInfo from './ContactInfo'
 import ContactInfoForm from './ContactInfoForm'
-import Skills from './Skills'
+import Skill from './Skill'
+import SkillForm from './SkillForm'
 import Meetups from './Meetups'
 
 
@@ -18,20 +19,29 @@ class Profile extends Component {
   state = {
     editBioMode: false,
     editPersonalInfoMode: false,
-    editContactInfoMode: false
-
+    editContactInfoMode: false,
+    editSkillsMode: false,
+    addSkillsMode: false
   }
 
   editBio = () => {
-    this.setState({editBioMode: true})
+    this.setState({editBioMode: !this.state.editBioMode})
   }
 
   editPersonalInfo = () => {
-    this.setState({editPersonalInfoMode: true})
+    this.setState({editPersonalInfoMode: !this.state.editPersonalInfoMode})
   }
 
   editContactInfo = () => {
-    this.setState({editContactInfoMode: true})
+    this.setState({editContactInfoMode: !this.state.editContactInfoMode})
+  }
+
+  editSkills = () => {
+    this.setState({editSkillsMode: !this.state.editSkillsMode})
+  }
+
+  addSkills = () => {
+    this.setState({addSkillsMode: true})
   }
 
   updatePersonalInfo = (event) => {
@@ -112,6 +122,55 @@ class Profile extends Component {
       })
   }
 
+  findSkill = (event, skillId) => {
+    event.preventDefault()
+    this.postUserSkill(skillId)
+  }
+
+  postUserSkill = (skillId) => {
+    fetch(`http://localhost:3000/userskills`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          user_id: this.props.user.id,
+          skill_id: skillId
+        }
+      )
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        this.fetchSkills(json.user_id)
+      })
+
+  }
+
+  fetchSkills = (user_id) => {
+    fetch(`http://localhost:3000/users/${user_id}`)
+    .then(response => response.json())
+    .then(json => {
+      this.props.setCurrentSkills(json.skills)
+      this.setState({editSkillsMode: false})
+    })
+
+  }
+
+  deleteSkill = (event) => {
+    event.preventDefault()
+    let skill = event.currentTarget.parentElement.innerText
+    this.deleteUserSkill(skill)
+  }
+
+  deleteUserSkill = (skill) => {
+    //doesnt work
+  }
+
+
+
   render() {
     return (
         <Segment>
@@ -167,9 +226,27 @@ class Profile extends Component {
             </Grid.Column>
             <Grid.Column width={5}>
               <Segment>
-                <h4>Skills</h4>
+                <h4>Skills {<Icon name='pencil' size="small" onClick={this.editSkills}/>}</h4>
                 <Divider />
-                <Skills />
+                {this.state.addSkillsMode ?
+                  <SkillForm onSubmit={this.findSkill}/>
+                  :
+                  this.props.skills[0] ?
+                    <List>
+                      {this.props.skills.map(skill =>
+                        <Skill skill={skill} editSkillsMode={this.state.editSkillsMode} onClick={this.deleteSkill}/>
+                      )}
+                      {this.state.editSkillsMode ?
+                        <Button basic onClick={this.addSkills}>Add Skill</Button>
+                      :
+                        null
+                      }
+                    </List>
+                  :
+                    <Button basic onClick={this.addSkills}>Add Skill</Button>
+                }
+
+
               </Segment>
 
               <Segment>
@@ -191,13 +268,18 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user, profile: state.profile }
+  return {
+    user: state.user,
+    profile: state.profile,
+    skills: state.skills
+   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
-    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
+    setCurrentSkills: skills => dispatch(setCurrentSkills(skills))
   }
 }
 

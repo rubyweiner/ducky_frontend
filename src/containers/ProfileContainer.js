@@ -3,7 +3,7 @@ import { Container, Image, Grid, Segment, Divider } from 'semantic-ui-react'
 import ProfileForm from '../components/profile/ProfileForm'
 import Profile from '../components/profile/Profile'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile } from '../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills } from '../actions/actions.js'
 
 
 class ProfileContainer extends Component {
@@ -64,14 +64,16 @@ class ProfileContainer extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    profile: state.profile
+    profile: state.profile,
+    skills: state.skills
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
-    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
+    setCurrentSkills: skills => dispatch(setCurrentSkills(skills))
   }
 }
 

@@ -6,7 +6,7 @@ import NavBar from './containers/NavBar'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile } from './actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills } from './actions/actions.js'
 
 class App extends Component {
 
@@ -14,6 +14,7 @@ class App extends Component {
     localStorage.clear()
     this.props.setCurrentUser({})
     this.props.setCurrentProfile({})
+    this.props.setCurrentSkills({})
   }
 
   render() {
@@ -46,14 +47,19 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user, profile: state.profile }
+  return {
+    user: state.user,
+    profile: state.profile,
+    skills: state.skills
+  }
 }
 
 
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
-    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
+    setCurrentSkills: skills => dispatch(setCurrentSkills(skills))
   }
 }
 

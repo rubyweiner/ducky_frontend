@@ -4,7 +4,7 @@ import SignUpButton from '../components/login/SignUpButton'
 import LoginForm from '../components/login/LoginForm'
 import { Card, Segment, Divider, Header, Container } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile } from '../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills } from '../actions/actions.js'
 
 class LoginContainer extends Component {
   state = {
@@ -65,6 +65,7 @@ class LoginContainer extends Component {
         console.log(json)
         this.props.setCurrentUser(json.user);
         this.props.setCurrentProfile(null)
+        this.props.setCurrentSkills([])
         localStorage.setItem("token", json.jwt);
         this.props.history.push('/profile')
       })
@@ -78,6 +79,7 @@ class LoginContainer extends Component {
   }
 
   fetchExistingUser = (email, pw) => {
+
     fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
@@ -102,6 +104,7 @@ class LoginContainer extends Component {
         if (json !== undefined){
           this.props.setCurrentUser(json.user);
           this.props.setCurrentProfile(json.user.profile)
+          this.props.setCurrentSkills(json.user.skills)
           localStorage.setItem("token", json.jwt);
           this.props.history.push('/profile')
         }
@@ -140,13 +143,19 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user }
+  return {
+    user: state.user,
+    profile: state.profile,
+    skills: state.skills
+  }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
-    setCurrentProfile: profile => dispatch(setCurrentProfile(profile))
+    setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
+    setCurrentSkills: skills => dispatch(setCurrentSkills(skills))
+
   }
 }
 
