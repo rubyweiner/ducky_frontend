@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills } from '../../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherProfile } from '../../actions/actions.js'
 import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import Bio from './Bio'
 import BioForm from './BioForm'
@@ -15,7 +15,7 @@ import Meetups from './Meetups'
 
 
 
-class Profile extends Component {
+class MyProfile extends Component {
   state = {
     editBioMode: false,
     editPersonalInfoMode: false,
@@ -271,7 +271,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     profile: state.profile,
-    skills: state.skills
+    skills: state.skills,
+    notMyProfile: state.notMyProfile
    }
 }
 
@@ -279,8 +280,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
-    setCurrentSkills: skills => dispatch(setCurrentSkills(skills))
+    setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
+    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)

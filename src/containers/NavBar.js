@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Menu, Button, Dropdown, Image, Input } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
 import SearchResults from './SearchResults'
-import ProfileContainer from './ProfileContainer'
+import MyProfileContainer from './MyProfileContainer'
 
 const duckyIcon = 'https://cdn3.iconfinder.com/data/icons/solidix-toys/128/toy_children-15-512.png'
 
@@ -19,7 +19,7 @@ class NavBar extends Component {
     fetch('http://localhost:3000/profiles')
     .then(response => response.json())
     .then(json => this.setState({profiles: json}))
-    this.filterProfiles(query)
+    .then(this.filterProfiles(query))
 
   }
 
@@ -28,6 +28,12 @@ class NavBar extends Component {
     let filtered = profiles.filter(profile => profile.first_name.toLowerCase().includes(query))
     this.setState({filteredProfiles: filtered})
   }
+
+  onClick = (event) => {
+    let profileId = event.target.className
+    this.props.viewProfile(profileId).then((json) => this.props.history.push(`/profile/${json.first_name}_${json.last_name}`))
+  }
+
 
 
   render() {
@@ -65,7 +71,7 @@ class NavBar extends Component {
             null
           :
             <div className="searchresults">
-              <SearchResults profiles={this.state.filteredProfiles}/>
+              <SearchResults profiles={this.state.filteredProfiles} onClick={this.onClick}/>
             </div>
           }
       </Menu>
@@ -103,7 +109,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     profile: state.profile,
-    skills: state.skills
+    skills: state.skills,
+    notMyProfile: state.notMyProfile
   }
 }
 

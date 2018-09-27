@@ -106,7 +106,7 @@ class LoginContainer extends Component {
           this.props.setCurrentProfile(json.user.profile)
           this.props.setCurrentSkills(json.user.skills)
           localStorage.setItem("token", json.jwt);
-          this.props.history.push('/profile')
+          this.props.history.push('/home')
         }
       })
   }
