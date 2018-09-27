@@ -7,7 +7,7 @@ import MyProfileContainer from './containers/MyProfileContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherProfile } from './actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills } from './actions/actions.js'
 
 class App extends Component {
 
@@ -17,7 +17,17 @@ class App extends Component {
     .then(json => {
       console.log(json)
       this.props.setOtherProfile(json)
+      this.fetchUser(json.user_id)
       return json
+    })
+  }
+
+  fetchUser = (userId) => {
+    fetch (`http://localhost:3000/users/${userId}`)
+    .then(response => response.json())
+    .then(json => {
+      this.props.setOtherUser(json)
+      this.props.setOtherSkills(json.skills)
     })
   }
 
@@ -26,7 +36,9 @@ class App extends Component {
     this.props.setCurrentUser({})
     this.props.setCurrentProfile({})
     this.props.setCurrentSkills({})
+    this.props.setOtherUser({})
     this.props.setOtherProfile({})
+    this.props.setOtherSkills({})
   }
 
   render() {
@@ -64,7 +76,9 @@ const mapStateToProps = state => {
     user: state.user,
     profile: state.profile,
     skills: state.skills,
-    notMyProfile: state.notMyProfile
+    notMyUser: state.notMyUser,
+    notMyProfile: state.notMyProfile,
+    notMySkills: state.notMySkills
   }
 }
 
@@ -74,7 +88,9 @@ const mapDispatchToProps = dispatch => {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
-    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile))
+    setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
+    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
+    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills))
   }
 }
 

@@ -13,8 +13,6 @@ import SkillForm from './SkillForm'
 import Meetups from './Meetups'
 
 
-
-
 class MyProfile extends Component {
   state = {
     editBioMode: false,
@@ -206,7 +204,13 @@ class MyProfile extends Component {
                 {this.state.editPersonalInfoMode ?
                   <PersonalInfoForm onSubmit={this.updatePersonalInfo} />
                 :
-                  <PersonalInfo />
+                  <PersonalInfo
+                    current_location={this.props.profile.current_location}
+                    hometown={this.props.profile.hometown}
+                    education={this.props.profile.education}
+                    company={this.props.profile.company}
+                    dob={this.props.profile.dob}
+                  />
                 }
               </Segment>
 
@@ -216,7 +220,11 @@ class MyProfile extends Component {
                 {this.state.editContactInfoMode ?
                   <ContactInfoForm onSubmit={this.updateContactInfo} />
                 :
-                  <ContactInfo />
+                  <ContactInfo
+                    email={this.props.user.email}
+                    github={this.props.profile.github}
+                    blog={this.props.profile.blog}
+                  />
                 }
               </Segment>
 

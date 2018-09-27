@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherProfile } from '../../actions/actions.js'
+import { setOtherUser, setOtherProfile, setOtherSkills} from '../../actions/actions.js'
 import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import Bio from './Bio'
 import PersonalInfo from './PersonalInfo'
@@ -36,13 +36,23 @@ class NotMyProfile extends Component {
             <Segment>
               <h4>Personal Info</h4>
               <Divider />
-              <PersonalInfo />
+              <PersonalInfo
+                current_location={this.props.notMyProfile.current_location}
+                hometown={this.props.notMyProfile.hometown}
+                education={this.props.notMyProfile.education}
+                company={this.props.notMyProfile.company}
+                dob={this.props.notMyProfile.dob}
+                />
             </Segment>
 
             <Segment>
               <h4>Contact Info</h4>
               <Divider />
-              <ContactInfo />
+              <ContactInfo
+                email={this.props.notMyUser.email}
+                github={this.props.notMyProfile.github}
+                blog={this.props.notMyProfile.blog}
+              />
             </Segment>
 
             <Segment>
@@ -78,19 +88,17 @@ class NotMyProfile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    profile: state.profile,
-    skills: state.skills,
-    notMyProfile: state.notMyProfile
+    notMyUser: state.notMyUser,
+    notMyProfile: state.notMyProfile,
+    notMySkills: state.notMySkills
    }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCurrentUser: user => dispatch(setCurrentUser(user)),
-    setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
-    setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
-    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile))
+    setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
+    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
+    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills))
   }
 }
 
