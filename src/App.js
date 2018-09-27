@@ -26,10 +26,10 @@ class App extends Component {
 
 
     const DefaultRouting = () => (
-     <div className="container">
-       <NavBar onClick={this.logOut}/>
-       <Route exact path="/profile" component={ProfileContainer} />
-       <Route exact path="/home" component={HomePageContainer} />
+     <div className="parent">
+        <NavBar onClick={this.logOut}/>
+          <Route exact path="/profile" component={ProfileContainer} />
+          <Route exact path="/home" component={HomePageContainer} />
      </div>
     )
 

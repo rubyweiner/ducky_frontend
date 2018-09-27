@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+.page {
+  position: relative;
+}
+
 .background {
   width: 100%;
   height: 100vh;
@@ -54,10 +58,17 @@ body {
   margin: auto;
 }
 
-.bio {
-
+.container {
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
-.profilecontainer {
-
+.searchresults {
+  position: absolute;
+  background-color: white;
+  border: 1px solid grey;
+  z-index: 1;
+  width: 200px;
+  text-align: left;
 }

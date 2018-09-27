@@ -1,99 +1,110 @@
 import React, { Component } from 'react';
-import { Menu, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Menu, Button, Dropdown, Image, Input } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
+import SearchResults from './SearchResults'
 import ProfileContainer from './ProfileContainer'
 
 const duckyIcon = 'https://cdn3.iconfinder.com/data/icons/solidix-toys/128/toy_children-15-512.png'
 
 class NavBar extends Component {
 
+  state = {
+    query: '',
+    profiles: [],
+    filteredProfiles: []
+  }
+
+  fetchProfiles = (query) => {
+    fetch('http://localhost:3000/profiles')
+    .then(response => response.json())
+    .then(json => this.setState({profiles: json}))
+    this.filterProfiles(query)
+
+  }
+
+  filterProfiles = (query) => {
+    let profiles = this.state.profiles
+    let filtered = profiles.filter(profile => profile.first_name.toLowerCase().includes(query))
+    this.setState({filteredProfiles: filtered})
+  }
+
+
   render() {
 		return (
-      <div className={`ui menu navbar`}>
-      <div className="item">
-        <h2 className="ui header">
-          <div className="content">Ducky</div>
-        </h2>
-      </div>
-
+    <div className={`ui menu navbar`}>
       <NavLink
         activeClassName="ui active item"
         className="ui item"
         to="/home"
       >
-        Home
+        <h2>Ducky</h2>
       </NavLink>
 
-      <NavLink
-        exact
-        to="/profile"
-        className="ui item"
-        activeClassName="ui active item"
-      >
-        Profile
-      </NavLink>
+      <div className="item">
+      <Menu secondary vertical>
+        <Menu.Item>
 
-      <NavLink
-        exact
-        to="/login"
-        className="ui item"
-        activeClassName="ui active item"
-        onClick={() => this.props.onClick()}
-      >
-        LogOut
-      </NavLink>
+          <div className="ui large icon input">
+            <Input
+              type="text"
+              size="mini"
+              icon="search"
+              placeholder="Search"
+              value={this.state.query}
+              onChange={(event) => {
+                this.setState({query: event.currentTarget.value})
+                this.fetchProfiles(event.currentTarget.value.toLowerCase())
+                }
+              }
+            />
+          </div>
+        </Menu.Item>
 
+          {this.state.query === '' ?
+            null
+          :
+            <div className="searchresults">
+              <SearchResults profiles={this.state.filteredProfiles}/>
+            </div>
+          }
+      </Menu>
+      </div>
+      <div className="right menu">
+        <NavLink
+          exact
+          to="/profile"
+          className="ui item"
+          activeClassName="ui active item"
+        >
+          <Image src={this.props.profile.profile_pic} avatar/>
+          {this.props.profile.first_name} {this.props.profile.last_name}
+        </NavLink>
+
+
+        <NavLink
+          exact
+          to="/login"
+          className="ui item"
+          activeClassName="ui active item"
+          onClick={() => this.props.onClick()}
+
+        >
+          LogOut
+        </NavLink>
+      </div>
     </div>
 
 		)
 	}
 }
 
-export default NavBar
-// {props.user ? (
-//   <span className="ui item">Logged in as: username}</span>
-// ) : (
-//   <NavLink
-//     exact
-//     to="/login"
-//     className="ui item"
-//     activeClassName="ui active item"
-//   >
-//     Login
-//   </NavLink>
-// )}
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    profile: state.profile,
+    skills: state.skills
+  }
+}
 
-//
-// <div>
-//   <Menu >
-//    <Menu.Item>
-//      <img src='https://cdn3.iconfinder.com/data/icons/solidix-toys/128/toy_children-15-512.png' />
-//    </Menu.Item>
-//
-//    <Menu.Item header>Ducky</Menu.Item>
-//
-//    <Menu.Item
-//      name='home'
-//      active={activeItem === 'home'}
-//      onClick={this.handleItemClick}
-//    >
-//     Home
-//    </Menu.Item>
-//
-//    <Menu.Item
-//      name='profile'
-//      active={activeItem === 'profile'}
-//      onClick={this.handleItemClick}
-//    >
-//     Profile
-//    </Menu.Item>
-//
-//
-//
-//    <Menu.Item  position='right'>
-//      <Button basic onClick={() => this.props.logOut()}>Log-Out</Button>
-//    </Menu.Item>
-//   </Menu>
-//   </div>,
-//
-//   this.state.activeItem === "profile"? <Profile /> : null
+export default connect(mapStateToProps)(NavBar)
