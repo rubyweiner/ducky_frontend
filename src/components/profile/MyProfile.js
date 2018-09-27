@@ -188,10 +188,8 @@ class MyProfile extends Component {
           {this.state.editBioMode ?
             <BioForm onSubmit={this.updateBio}/>
           :
-            <Bio bio={this.props.profile.bio} onClick={this.editBio}/>
+            <p> {this.props.profile.bio} {<Icon name='pencil' size="small" onClick={this.editBio}/>}</p>
           }
-
-
 
           <Divider />
 

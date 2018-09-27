@@ -7,6 +7,7 @@ import PersonalInfo from './PersonalInfo'
 import ContactInfo from './ContactInfo'
 import Skill from './Skill'
 import Meetups from './Meetups'
+import AddFriendButton from './AddFriendButton'
 
 class NotMyProfile extends Component {
 
@@ -81,6 +82,9 @@ class NotMyProfile extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={5}>
+
+            <AddFriendButton />
+
             <Segment>
               <h4>Friends</h4>
               <Divider />
