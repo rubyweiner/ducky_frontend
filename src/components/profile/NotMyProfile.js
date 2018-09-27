@@ -63,9 +63,15 @@ class NotMyProfile extends Component {
             <Segment>
               <h4>Skills</h4>
               <Divider />
-                <List>
-                  <List.Item>HELLo</List.Item>
-                </List>
+                {this.props.notMySkills ?
+                  <List>
+                    {this.props.notMySkills.map(skill =>
+                      <Skill skill={skill} />
+                    )}
+                  </List>
+                :
+                  null
+                }
             </Segment>
 
             <Segment>
