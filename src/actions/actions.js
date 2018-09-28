@@ -22,6 +22,10 @@ export function addFollowing(following) {
   return {following: following, type: 'ADD_FOLLOWING'}
 }
 
+export function setCurrentPosts(posts) {
+  return {posts: posts, type: 'SET_CURRENT_POSTS'}
+}
+
 export function setOtherUser(user) {
   return {user: user, type: 'SET_OTHER_USER'}
 }

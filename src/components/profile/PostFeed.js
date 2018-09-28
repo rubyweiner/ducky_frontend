@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { Feed, Icon } from 'semantic-ui-react'
 
 class PostFeed extends Component {
 
   render() {
     return (
-      <Feed>
-        <Feed.Event>
-          <Feed.Label>
-            <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-          </Feed.Label>
+      <Feed.Event>
+        <Feed.Label>
+          <img src={this.props.profile.profile_pic} />
+        </Feed.Label>
         <Feed.Content>
-        <Feed.Summary>
-          <Feed.User>Elliot Fu</Feed.User> added you as a friend
-          <Feed.Date>1 Hour Ago</Feed.Date>
-        </Feed.Summary>
-        <Feed.Meta>
-          <Feed.Like>
-            <Icon name='like' />
-               4 Likes
-             </Feed.Like>
-           </Feed.Meta>
-         </Feed.Content>
-       </Feed.Event>
-      </Feed>
+          <Feed.Summary>
+            <a>{this.props.profile.first_name} {this.props.profile.last_name}</a>
+          </Feed.Summary>
+          <Feed.Extra text>
+            {this.props.post.content}
+          </Feed.Extra>
+        </Feed.Content>
+      </Feed.Event>
 
     )
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    profile: state.profile,
+    skills: state.skills,
+    followers: state.followers,
+    posts: state.posts
+   }
+}
 
-export default PostFeed
+export default connect(mapStateToProps)(PostFeed)

@@ -4,7 +4,7 @@ import SignUpButton from '../components/login/SignUpButton'
 import LoginForm from '../components/login/LoginForm'
 import { Card, Segment, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers, setCurrentFollowing } from '../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers, setCurrentFollowing, setCurrentPosts } from '../actions/actions.js'
 
 class LoginContainer extends Component {
   state = {
@@ -68,6 +68,7 @@ class LoginContainer extends Component {
         this.props.setCurrentSkills([])
         this.props.setCurrentFollowers([])
         this.props.setCurrentFollowing([])
+        this.props.setCurrentPosts([])
         localStorage.setItem("token", json.jwt);
         this.props.history.push('/profile')
       })
@@ -109,6 +110,7 @@ class LoginContainer extends Component {
           this.props.setCurrentSkills(json.user.skills)
           this.props.setCurrentFollowers(json.user.followers)
           this.props.setCurrentFollowing([])
+          this.props.setCurrentPosts(json.user.posts)
           localStorage.setItem("token", json.jwt);
           this.props.history.push('/home')
         }
@@ -160,7 +162,8 @@ const mapDispatchToProps = dispatch => {
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
     setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers)),
-    setCurrentFollowing: following => dispatch(setCurrentFollowing(following))
+    setCurrentFollowing: following => dispatch(setCurrentFollowing(following)),
+    setCurrentPosts: posts => dispatch(setCurrentPosts(posts))
 
   }
 }

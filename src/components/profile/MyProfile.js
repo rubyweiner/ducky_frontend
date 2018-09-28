@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers } from '../../actions/actions.js'
-import { Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers, setCurrentPosts } from '../../actions/actions.js'
+import { Image, Grid, Segment, Divider, Header, Button, Icon, List, Feed } from 'semantic-ui-react'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
 import PersonalInfoForm from './PersonalInfoForm'
@@ -169,6 +169,36 @@ class MyProfile extends Component {
     //doesnt work
   }
 
+  createPost = (event) => {
+    event.preventDefault()
+    let content = event.currentTarget.parentElement.querySelector(".ui input").value
+    event.currentTarget.parentElement.querySelector('input').value = ""
+
+    fetch ('http://localhost:3000/posts', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          content: content,
+          user_id: this.props.user.id
+        }
+      )
+    })
+    .then(response => response.json())
+    .then(this.fetchPosts)
+  }
+
+  fetchPosts = () => {
+    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    .then(response => response.json())
+    .then(json => {
+      this.props.setCurrentPosts(json.posts)
+    })
+  }
+
 
 
   render() {
@@ -260,9 +290,19 @@ class MyProfile extends Component {
 
             </Grid.Column>
             <Grid.Column width={6}>
-              <PostInput />
+              <PostInput onClick={this.createPost}/>
               <Segment>
-                <PostFeed />
+                <Feed>
+                  {this.props.posts[0] ?
+                    this.props.posts.map(post =>
+                      <PostFeed post={post} />
+                    )
+                  :
+                    <p>No Posts to Share</p>
+
+                  }
+
+                </Feed>
               </Segment>
 
             </Grid.Column>
@@ -298,7 +338,8 @@ const mapStateToProps = state => {
     user: state.user,
     profile: state.profile,
     skills: state.skills,
-    followers: state.followers
+    followers: state.followers,
+    posts: state.posts
    }
 }
 
@@ -307,7 +348,8 @@ const mapDispatchToProps = dispatch => {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
-    setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers))
+    setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers)),
+    setCurrentPosts: posts => dispatch(setCurrentPosts(posts))
   }
 }
 

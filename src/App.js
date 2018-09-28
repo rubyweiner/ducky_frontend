@@ -7,7 +7,7 @@ import MyProfileContainer from './containers/MyProfileContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers } from './actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setCurrentFollowers, setCurrentFollowing, setCurrentPosts } from './actions/actions.js'
 
 class App extends Component {
 
@@ -39,6 +39,7 @@ class App extends Component {
     this.props.setCurrentSkills({})
     this.props.setCurrentFollowers({})
     this.props.setCurrentFollowing({})
+    this.props.setCurrentPosts({})
     this.props.setOtherUser({})
     this.props.setOtherProfile({})
     this.props.setOtherSkills({})
@@ -93,6 +94,9 @@ const mapDispatchToProps = dispatch => {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
+    setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers)),
+    setCurrentFollowing: following => dispatch(setCurrentFollowing(following)),
+    setCurrentPosts: posts => dispatch(setCurrentPosts(posts)),
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
     setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
