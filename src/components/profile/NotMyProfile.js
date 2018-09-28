@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers} from '../../actions/actions.js'
-import { Image, Grid, Segment, Divider, Header, List } from 'semantic-ui-react'
+import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setOtherPosts} from '../../actions/actions.js'
+import { Image, Grid, Segment, Divider, Header, List, Feed } from 'semantic-ui-react'
 import Bio from './Bio'
 import PersonalInfo from './PersonalInfo'
 import ContactInfo from './ContactInfo'
@@ -9,6 +9,9 @@ import Skill from './Skill'
 import Meetups from './Meetups'
 import AddFriendButton from './AddFriendButton'
 import Followships from './Followships'
+import PostInput from './PostInput'
+import PostFeed from './PostFeed'
+
 
 class NotMyProfile extends Component {
   state = {
@@ -62,11 +65,6 @@ class NotMyProfile extends Component {
             </Segment>
 
             <Segment>
-              SPOTIFY PLAYLIST?
-            </Segment>
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <Segment>
               <h4>Skills</h4>
               <Divider />
                 {this.props.notMySkills ?
@@ -79,12 +77,32 @@ class NotMyProfile extends Component {
                   null
                 }
             </Segment>
-
             <Segment>
               <h4>MeetUps</h4>
               <Divider />
               <Meetups />
             </Segment>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Segment>
+              <Feed>
+                {this.props.notMyPosts[0] ?
+                  this.props.notMyPosts.reverse().map(post =>
+                    <PostFeed
+                      post={post}
+                      first_name={this.props.notMyProfile.first_name}
+                      last_name={this.props.notMyProfile.last_name}
+                      profile_pic={this.props.notMyProfile.profile_pic}
+                    />
+                  )
+                :
+                  <p>No Posts to Share</p>
+
+                }
+
+              </Feed>
+          </Segment>
+
           </Grid.Column>
           <Grid.Column width={5}>
               <AddFriendButton following={this.state.following}/>
@@ -102,6 +120,10 @@ class NotMyProfile extends Component {
               </List>
             </Segment>
 
+            <Segment>
+              SPOTIFY PLAYLIST?
+            </Segment>
+
           </Grid.Column>
         </Grid>
       </Segment>
@@ -114,7 +136,8 @@ const mapStateToProps = state => {
     notMyUser: state.notMyUser,
     notMyProfile: state.notMyProfile,
     notMySkills: state.notMySkills,
-    notMyFollowers: state.notMyFollowers
+    notMyFollowers: state.notMyFollowers,
+    notMyPosts: state.notMyPosts
    }
 }
 
@@ -123,7 +146,8 @@ const mapDispatchToProps = dispatch => {
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
     setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
-    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers))
+    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers)),
+    setOtherPosts: notMyPosts => dispatch(setOtherPosts(notMyPosts))
   }
 }
 

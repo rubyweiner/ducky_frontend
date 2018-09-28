@@ -41,3 +41,7 @@ export function setOtherSkills(skills) {
 export function setOtherFollowers(followers) {
   return {followers: followers, type: 'SET_OTHER_FOLLOWERS'}
 }
+
+export function setOtherPosts(posts) {
+  return {posts: posts, type: 'SET_OTHER_POSTS'}
+}

@@ -294,8 +294,13 @@ class MyProfile extends Component {
               <Segment>
                 <Feed>
                   {this.props.posts[0] ?
-                    this.props.posts.map(post =>
-                      <PostFeed post={post} />
+                    this.props.posts.reverse().map(post =>
+                      <PostFeed
+                        post={post}
+                        first_name={this.props.profile.first_name}
+                        last_name={this.props.profile.last_name}
+                        profile_pic={this.props.profile.profile_pic} 
+                      />
                     )
                   :
                     <p>No Posts to Share</p>

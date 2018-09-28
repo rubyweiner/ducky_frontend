@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { List } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers } from '../../actions/actions.js'
+import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setOtherPosts} from '../../actions/actions.js'
 
 class Followships extends Component {
 
@@ -35,6 +35,7 @@ class Followships extends Component {
     this.props.setOtherUser(this.state.follower)
     this.props.setOtherSkills(this.state.follower.skills)
     this.props.setOtherFollowers(this.state.follower.followers)
+    this.props.setOtherPosts(this.state.follower.posts)
   }
 
   render() {
@@ -59,7 +60,8 @@ const mapDispatchToProps = dispatch => {
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
     setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
-    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers))
+    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers)),
+    setOtherPosts: notMyPosts => dispatch(setOtherPosts(notMyPosts))
   }
 }
 

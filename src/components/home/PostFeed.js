@@ -3,17 +3,36 @@ import React, { Component } from 'react';
 import { Feed, Icon } from 'semantic-ui-react'
 
 class PostFeed extends Component {
+  state = {
+    user: {},
+    profile: {}
+  }
+
+  componentDidMount() {
+    this.fetchUser()
+  }
+
+  fetchUser = () => {
+    fetch (`http://localhost:3000/users/${this.props.post.user.id}`)
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        user: json,
+        profile: json.profile
+      })
+    })
+  }
 
   render() {
+
     return (
       <Feed.Event>
         <Feed.Label>
-          <img src={this.props.profile_pic} />
+          <img src={this.state.profile.profile_pic} />
         </Feed.Label>
         <Feed.Content>
           <Feed.Summary>
-            <a>{this.props.first_name} {this.props.last_name}</a>
-
+            <a>{this.state.profile.first_name} {this.state.profile.last_name}</a>
           </Feed.Summary>
           <Feed.Extra text>
             {this.props.post.content}

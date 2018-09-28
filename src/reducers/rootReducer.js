@@ -9,6 +9,7 @@ import notMyUserReducer from './notMyUserReducer'
 import notMyProfileReducer from './notMyProfileReducer'
 import notMySkillsReducer from './notMySkillsReducer'
 import notMyFollowersReducer from './notMyFollowersReducer'
+import notMyPostsReducer from './notMyPostsReducer'
 
 
 export default combineReducers({
@@ -21,5 +22,6 @@ export default combineReducers({
   notMyUser: notMyUserReducer,
   notMyProfile: notMyProfileReducer,
   notMySkills: notMySkillsReducer,
-  notMyFollowers: notMyFollowersReducer
+  notMyFollowers: notMyFollowersReducer,
+  notMyPosts: notMyPostsReducer
 })
