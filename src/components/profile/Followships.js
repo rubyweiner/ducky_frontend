@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { List } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers } from '../../actions/actions.js'
 
 class Followships extends Component {
 
   state = {
     follower: {},
+    profile: {},
     first_name: '',
     last_name: ''
   }
@@ -20,28 +23,47 @@ class Followships extends Component {
     .then(json => {
       this.setState({
         follower: json,
+        profile: json.profile,
         first_name: json.profile.first_name,
         last_name: json.profile.last_name
       })
     })
   }
 
+  onClick = () => {
+    this.props.setOtherProfile(this.state.profile)
+    this.props.setOtherUser(this.state.follower)
+    this.props.setOtherSkills(this.state.follower.skills)
+    this.props.setOtherFollowers(this.state.follower.followers)
+  }
+
   render() {
 
-    return (
-      <List.Item>
-        <p>
-        <a href>{this.state.first_name} {this.state.last_name}</a>
-        </p>
-      </List.Item>
+  return (
+    <List.Item onClick={this.onClick}>
+      <p>
+        <Link
+          to={`/profile/${this.state.first_name}_${this.state.last_name}`}
+        >
+          {this.state.first_name} {this.state.last_name}
+        </Link>
+      </p>
+    </List.Item>
     )
   }
 }
 
 
+const mapDispatchToProps = dispatch => {
+  return {
+    setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
+    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
+    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
+    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers))
+  }
+}
 
-
-export default Followships
+export default connect(null, mapDispatchToProps)(Followships)
 //
 // <Grid.Row>
 //  {this.props.followships.map(followship =>
@@ -50,3 +72,4 @@ export default Followships
 //    </Grid.Column>
 //  )}
 // </Grid.Row>
+// <a href=``>{this.state.first_name} {this.state.last_name}</a>

@@ -3,6 +3,7 @@ import usersReducer from './usersReducer'
 import profilesReducer from './profilesReducer'
 import skillsReducer from './skillsReducer'
 import followersReducer from './followersReducer'
+import followingReducer from './followingReducer'
 import notMyUserReducer from './notMyUserReducer'
 import notMyProfileReducer from './notMyProfileReducer'
 import notMySkillsReducer from './notMySkillsReducer'
@@ -14,6 +15,7 @@ export default combineReducers({
   profile: profilesReducer,
   skills: skillsReducer,
   followers: followersReducer,
+  following: followingReducer,
   notMyUser: notMyUserReducer,
   notMyProfile: notMyProfileReducer,
   notMySkills: notMySkillsReducer,

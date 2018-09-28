@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import { addFollowing } from '../../actions/actions.js'
 import { Button } from 'semantic-ui-react'
 
 class AddFriendButton extends Component {
+  state = {
+    following: this.props.following
+  }
 
   createFollowship= () => {
     fetch(`http://localhost:3000/followships`, {
@@ -20,7 +24,10 @@ class AddFriendButton extends Component {
     .then(response => response.json())
     .then(json => {
       console.log(json)
+      this.setState({following: true})
       debugger
+      this.props.addFollowing(json.user_id)
+      // debugger
     })
 
   }
@@ -41,6 +48,12 @@ const mapStateToProps = state => {
     user: state.user,
     notMyUser: state.notMyUser
    }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addFollowing: following => dispatch(addFollowing(following))
+  }
 }
 
 export default connect(mapStateToProps)(AddFriendButton)

@@ -11,6 +11,8 @@ import Skill from './Skill'
 import SkillForm from './SkillForm'
 import Meetups from './Meetups'
 import Followships from './Followships'
+import PostInput from './PostInput'
+import PostFeed from './PostFeed'
 
 
 class MyProfile extends Component {
@@ -227,11 +229,6 @@ class MyProfile extends Component {
               </Segment>
 
               <Segment>
-                SPOTIFY PLAYLIST?
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Segment>
                 <h4>Skills {<Icon name='pencil' size="small" onClick={this.editSkills}/>}</h4>
                 <Divider />
                 {this.state.addSkillsMode ?
@@ -260,6 +257,14 @@ class MyProfile extends Component {
                 <Divider />
                 <Meetups />
               </Segment>
+
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <PostInput />
+              <Segment>
+                <PostFeed />
+              </Segment>
+
             </Grid.Column>
             <Grid.Column width={5}>
               <Segment>
@@ -276,6 +281,10 @@ class MyProfile extends Component {
                 :
                   null
                 }
+              </Segment>
+
+              <Segment>
+                SPOTIFY PLAYLIST?
               </Segment>
             </Grid.Column>
           </Grid>

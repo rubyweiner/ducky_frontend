@@ -38,6 +38,7 @@ class App extends Component {
     this.props.setCurrentProfile({})
     this.props.setCurrentSkills({})
     this.props.setCurrentFollowers({})
+    this.props.setCurrentFollowing({})
     this.props.setOtherUser({})
     this.props.setOtherProfile({})
     this.props.setOtherSkills({})

@@ -14,6 +14,14 @@ export function setCurrentFollowers(followers) {
   return {followers: followers, type: 'SET_CURRENT_FOLLOWERS'}
 }
 
+export function setCurrentFollowing(following) {
+  return {following: following, type: 'SET_CURRENT_FOLLOWING'}
+}
+
+export function addFollowing(following) {
+  return {following: following, type: 'ADD_FOLLOWING'}
+}
+
 export function setOtherUser(user) {
   return {user: user, type: 'SET_OTHER_USER'}
 }

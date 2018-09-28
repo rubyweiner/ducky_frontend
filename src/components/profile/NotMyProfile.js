@@ -11,6 +11,9 @@ import AddFriendButton from './AddFriendButton'
 import Followships from './Followships'
 
 class NotMyProfile extends Component {
+  state = {
+    following: false
+  }
 
   render() {
 
@@ -84,9 +87,7 @@ class NotMyProfile extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={5}>
-
-            <AddFriendButton />
-
+              <AddFriendButton following={this.state.following}/>
             <Segment>
               <h4>Followers</h4>
               <Divider />
@@ -98,7 +99,6 @@ class NotMyProfile extends Component {
                 :
                   null
                 }
-
               </List>
             </Segment>
 
