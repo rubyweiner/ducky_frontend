@@ -24,6 +24,10 @@ class MyProfile extends Component {
     addSkillsMode: false
   }
 
+  componentDidMount() {
+    this.fetchPosts()
+  }
+
   editBio = () => {
     this.setState({editBioMode: !this.state.editBioMode})
   }
@@ -299,7 +303,7 @@ class MyProfile extends Component {
                         post={post}
                         first_name={this.props.profile.first_name}
                         last_name={this.props.profile.last_name}
-                        profile_pic={this.props.profile.profile_pic} 
+                        profile_pic={this.props.profile.profile_pic}
                       />
                     )
                   :

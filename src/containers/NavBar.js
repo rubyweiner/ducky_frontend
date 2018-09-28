@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Menu, Image, Input } from 'semantic-ui-react'
+import { Menu, Image, Input, Icon } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
 import SearchResults from './SearchResults'
 
@@ -87,6 +87,21 @@ class NavBar extends Component {
           {this.props.profile.first_name} {this.props.profile.last_name}
         </NavLink>
 
+        <NavLink
+          activeClassName="ui active item"
+          className="ui item"
+          to="/home"
+        >
+          <Icon fitted name='home' size="large"/>
+        </NavLink>
+
+        <NavLink
+          activeClassName="ui active item"
+          className="ui item"
+          to="/inbox"
+        >
+          <Icon fitted name='mail' size="large"/>
+        </NavLink>
 
         <NavLink
           exact

@@ -11,6 +11,14 @@ class PostFeed extends Component {
   componentDidMount() {
     this.fetchUser()
   }
+  
+  componentWillUnmount() {
+    this.setState({
+      user: {},
+      profile: {}
+    })
+  }
+
 
   fetchUser = () => {
     fetch (`http://localhost:3000/users/${this.props.post.user.id}`)
@@ -22,6 +30,7 @@ class PostFeed extends Component {
       })
     })
   }
+
 
   render() {
 
@@ -43,13 +52,6 @@ class PostFeed extends Component {
     )
   }
 }
-//
-// const mapStateToProps = state => {
-//   return {
-//
-//     profile: state.profile,
-//     notMyProfile: s
-//    }
-// }
+
 
 export default PostFeed

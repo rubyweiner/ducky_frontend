@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Divider, Feed } from 'semantic-ui-react'
+import { Grid, Segment, Divider, Feed, Header, Tab } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 import Map from '../components/home/Map'
 import PostInput from '../components/profile/PostInput'
 import PostFeed from '../components/home/PostFeed'
+import SearchInput from '../components/home/SearchInput'
+
+
+const panes = [
+  { menuItem: 'Name', render: () => <SearchInput filter="name" /> },
+  { menuItem: 'Skill', render: () => <SearchInput filter="skill" /> },
+  { menuItem: 'Location', render: () => <SearchInput filter="location" /> },
+]
 
 class HomePageContainer extends Component {
   state = {
     allPosts: [],
     user: {},
-    profile: {}
+    profile: {},
+    menuItem: ''
   }
 
   componentDidMount() {
@@ -24,17 +34,30 @@ class HomePageContainer extends Component {
 
   }
 
-  fetchUser = (post) => {
+  createPost = (event) => {
+    event.preventDefault()
+    let content = event.currentTarget.parentElement.querySelector(".ui input").value
+    event.currentTarget.parentElement.querySelector('input').value = ""
 
-    fetch (`http://localhost:3000/users/${post.user.id}`)
-    .then(response => response.json())
-    .then(json => {
-      console.log(json)
-      this.setState({
-        user: json,
-        profile: json.profile
-      })
+    fetch ('http://localhost:3000/posts', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          content: content,
+          user_id: this.props.user.id
+        }
+      )
     })
+    .then(response => response.json())
+    .then(this.fetchAllPosts)
+  }
+
+  onNameSearch = (event) => {
+    debugger
   }
 
   render() {
@@ -44,11 +67,8 @@ class HomePageContainer extends Component {
 
         <Grid columns="equal">
           <Grid.Column width={5}>
-            <Segment>
-              {Date.now()}
-            </Segment>
-            <Segment>
-            </Segment>
+            <h3>Search By...</h3>
+            <Tab menu={{ text: true }} panes={panes} />
           </Grid.Column>
           <Grid.Column width={6}>
             <PostInput onClick={this.createPost}/>
@@ -60,14 +80,18 @@ class HomePageContainer extends Component {
                   )
                 :
                   <p>No Posts to Share</p>
-
                 }
 
               </Feed>
             </Segment>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Map />
+            <Segment>
+              MEETUPS
+            </Segment>
+            <Segment>
+              SPOTIFY PLAYLIST ?
+            </Segment>
           </Grid.Column>
 
         </Grid>
@@ -77,8 +101,11 @@ class HomePageContainer extends Component {
 	}
 }
 
-export default HomePageContainer
+const mapStateToProps = state => {
+  return {
+    user: state.user
+   }
+}
 
-// first_name={this.props.profile.first_name}
-// last_name={this.props.profile.last_name}
-// profile_pic={this.props.profile.profile_pic}
+
+export default connect(mapStateToProps)(HomePageContainer)
