@@ -7,7 +7,7 @@ import MyProfileContainer from './containers/MyProfileContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills } from './actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers } from './actions/actions.js'
 
 class App extends Component {
 
@@ -28,6 +28,7 @@ class App extends Component {
     .then(json => {
       this.props.setOtherUser(json)
       this.props.setOtherSkills(json.skills)
+      this.props.setOtherFollowers(json.followers)
     })
   }
 
@@ -39,6 +40,7 @@ class App extends Component {
     this.props.setOtherUser({})
     this.props.setOtherProfile({})
     this.props.setOtherSkills({})
+    this.props.setOtherFollowers({})
   }
 
   render() {
@@ -78,7 +80,8 @@ const mapStateToProps = state => {
     skills: state.skills,
     notMyUser: state.notMyUser,
     notMyProfile: state.notMyProfile,
-    notMySkills: state.notMySkills
+    notMySkills: state.notMySkills,
+    notMyFollowers: state.notMyFollowers
   }
 }
 
@@ -90,7 +93,8 @@ const mapDispatchToProps = dispatch => {
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
-    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills))
+    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
+    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers))
   }
 }
 

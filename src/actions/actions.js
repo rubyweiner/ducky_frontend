@@ -21,3 +21,7 @@ export function setOtherProfile(profile) {
 export function setOtherSkills(skills) {
   return {skills: skills, type: 'SET_OTHER_SKILLS'}
 }
+
+export function setOtherFollowers(followers) {
+  return {followers: followers, type: 'SET_OTHER_FOLLOWERS'}
+}

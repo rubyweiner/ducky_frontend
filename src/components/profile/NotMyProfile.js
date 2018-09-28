@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setOtherUser, setOtherProfile, setOtherSkills} from '../../actions/actions.js'
+import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers} from '../../actions/actions.js'
 import { Image, Grid, Segment, Divider, Header, List } from 'semantic-ui-react'
 import Bio from './Bio'
 import PersonalInfo from './PersonalInfo'
@@ -13,6 +13,7 @@ import Followships from './Followships'
 class NotMyProfile extends Component {
 
   render() {
+
 		return (
 
       <Segment>
@@ -90,10 +91,14 @@ class NotMyProfile extends Component {
               <h4>Followers</h4>
               <Divider />
               <List>
-                {this.props.notMyUser.followers.map(follower =>
+                {this.props.notMyFollowers ?
+                  this.props.notMyFollowers.map(follower =>
+                    <Followships follower={follower}/>
+                  )
+                :
+                  null
+                }
 
-                  <Followships follower={follower}/>
-                )}
               </List>
             </Segment>
 
@@ -108,7 +113,8 @@ const mapStateToProps = state => {
   return {
     notMyUser: state.notMyUser,
     notMyProfile: state.notMyProfile,
-    notMySkills: state.notMySkills
+    notMySkills: state.notMySkills,
+    notMyFollowers: state.notMyFollowers
    }
 }
 
@@ -116,7 +122,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
-    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills))
+    setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
+    setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers))
   }
 }
 
