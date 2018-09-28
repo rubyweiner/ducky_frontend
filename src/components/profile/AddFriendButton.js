@@ -4,13 +4,31 @@ import { Button } from 'semantic-ui-react'
 
 class AddFriendButton extends Component {
 
-  onClick = () => {
-    debugger
+  createFollowship= () => {
+    fetch(`http://localhost:3000/followships`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: this.props.notMyUser.id,
+        follower_id: this.props.user.id
+
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+      debugger
+    })
+
   }
+
   render() {
     return (
-      <Button basic onClick={this.onClick}>
-        Add Friend
+      <Button basic onClick={this.createFollowship}>
+        Follow
       </Button>
 
     )
@@ -19,7 +37,10 @@ class AddFriendButton extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user, profile: state.profile }
+  return {
+    user: state.user,
+    notMyUser: state.notMyUser
+   }
 }
 
 export default connect(mapStateToProps)(AddFriendButton)

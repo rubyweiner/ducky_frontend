@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Header, Icon } from 'semantic-ui-react'
+// import { Header, Icon } from 'semantic-ui-react'
 
 const Bio = props => {
   return (

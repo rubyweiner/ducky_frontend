@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { setOtherUser, setOtherProfile, setOtherSkills} from '../../actions/actions.js'
-import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
+import { Image, Grid, Segment, Divider, Header, List } from 'semantic-ui-react'
 import Bio from './Bio'
 import PersonalInfo from './PersonalInfo'
 import ContactInfo from './ContactInfo'
 import Skill from './Skill'
 import Meetups from './Meetups'
 import AddFriendButton from './AddFriendButton'
+import Followships from './Followships'
 
 class NotMyProfile extends Component {
 
@@ -86,9 +87,16 @@ class NotMyProfile extends Component {
             <AddFriendButton />
 
             <Segment>
-              <h4>Friends</h4>
+              <h4>Followers</h4>
               <Divider />
+              <List>
+                {this.props.notMyUser.followers.map(follower =>
+
+                  <Followships follower={follower}/>
+                )}
+              </List>
             </Segment>
+
           </Grid.Column>
         </Grid>
       </Segment>
@@ -113,3 +121,8 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotMyProfile)
+
+// <Segment>
+//   <h4>Followers</h4>
+//   <Divider />
+// </Segment>

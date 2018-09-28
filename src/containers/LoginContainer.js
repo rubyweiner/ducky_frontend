@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import SignInButton from '../components/login/SignInButton'
 import SignUpButton from '../components/login/SignUpButton'
 import LoginForm from '../components/login/LoginForm'
-import { Card, Segment, Divider, Header, Container } from 'semantic-ui-react'
+import { Card, Segment, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { setCurrentUser, setCurrentProfile, setCurrentSkills } from '../actions/actions.js'
 

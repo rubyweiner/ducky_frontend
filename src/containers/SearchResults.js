@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Segment, Feed, Menu, Label, Image } from 'semantic-ui-react'
+import { Menu, Image } from 'semantic-ui-react'
 
 
 class SearchResults extends Component {

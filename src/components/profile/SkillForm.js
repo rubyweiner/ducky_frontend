@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Button, Form, Segment, Header, Select} from 'semantic-ui-react'
+import { Button, Form, Select} from 'semantic-ui-react'
 
 const options = [
   { key: 'ruby', text: 'Ruby', value: '1' },

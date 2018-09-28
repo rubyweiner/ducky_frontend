@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, List } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 // import { connect } from 'react-redux'
 
 const PersonalInfo = props => {

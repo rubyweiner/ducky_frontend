@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherProfile } from '../../actions/actions.js'
-import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
-import Bio from './Bio'
+import { Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
 import PersonalInfoForm from './PersonalInfoForm'
@@ -263,7 +262,11 @@ class MyProfile extends Component {
             </Grid.Column>
             <Grid.Column width={5}>
               <Segment>
-                <h4>Friends</h4>
+                <h4>Following</h4>
+                <Divider />
+              </Segment>
+              <Segment>
+                <h4>Followers</h4>
                 <Divider />
               </Segment>
             </Grid.Column>

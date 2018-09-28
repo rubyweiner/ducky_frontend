@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container, Image, Grid, Segment, Divider } from 'semantic-ui-react'
 import ProfileForm from '../components/profile/ProfileForm'
 import MyProfile from '../components/profile/MyProfile'
 import { connect } from 'react-redux'

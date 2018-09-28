@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import NotMyProfile from '../components/profile/NotMyProfile'
 
 class ProfileContainer extends Component {
@@ -32,4 +31,4 @@ const mapStateToProps = state => {
 //   }
 // }
 
-export default ProfileContainer
+export default connect(mapStateToProps)(ProfileContainer)

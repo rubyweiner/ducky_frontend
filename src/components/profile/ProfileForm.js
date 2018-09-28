@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Card, Header, Input, Select, Container, Segment} from 'semantic-ui-react'
+import { Button, Form, Input, Select, Segment} from 'semantic-ui-react'
 
 const options = [
   { key: 's', text: 'Student', value: 'student' },

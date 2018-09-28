@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Menu, Button, Dropdown, Image, Input } from 'semantic-ui-react'
+import { Menu, Image, Input } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
 import SearchResults from './SearchResults'
-import MyProfileContainer from './MyProfileContainer'
+
 
 const duckyIcon = 'https://cdn3.iconfinder.com/data/icons/solidix-toys/128/toy_children-15-512.png'
 
