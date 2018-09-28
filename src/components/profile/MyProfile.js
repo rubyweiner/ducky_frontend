@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherProfile } from '../../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers } from '../../actions/actions.js'
 import { Image, Grid, Segment, Divider, Header, Button, Icon, List } from 'semantic-ui-react'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
@@ -10,6 +10,7 @@ import ContactInfoForm from './ContactInfoForm'
 import Skill from './Skill'
 import SkillForm from './SkillForm'
 import Meetups from './Meetups'
+import Followships from './Followships'
 
 
 class MyProfile extends Component {
@@ -268,6 +269,13 @@ class MyProfile extends Component {
               <Segment>
                 <h4>Followers</h4>
                 <Divider />
+                {this.props.followers ?
+                  this.props.followers.map(follower =>
+                    <Followships follower={follower}/>
+                  )
+                :
+                  null
+                }
               </Segment>
             </Grid.Column>
           </Grid>
@@ -281,7 +289,7 @@ const mapStateToProps = state => {
     user: state.user,
     profile: state.profile,
     skills: state.skills,
-    notMyProfile: state.notMyProfile
+    followers: state.followers
    }
 }
 
@@ -290,7 +298,7 @@ const mapDispatchToProps = dispatch => {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
-    setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile))
+    setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers))
   }
 }
 

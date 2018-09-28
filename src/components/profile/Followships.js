@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { List } from 'semantic-ui-react'
 
 class Followships extends Component {
@@ -27,7 +27,7 @@ class Followships extends Component {
   }
 
   render() {
-    
+
     return (
       <List.Item>
         <p>
@@ -38,15 +38,10 @@ class Followships extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user,
-    notMyUser: state.notMyUser
-  }
-}
 
 
-export default connect(mapStateToProps)(Followships)
+
+export default Followships
 //
 // <Grid.Row>
 //  {this.props.followships.map(followship =>

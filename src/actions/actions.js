@@ -10,6 +10,10 @@ export function setCurrentSkills(skills) {
   return {skills: skills, type: 'SET_CURRENT_SKILLS'}
 }
 
+export function setCurrentFollowers(followers) {
+  return {followers: followers, type: 'SET_CURRENT_FOLLOWERS'}
+}
+
 export function setOtherUser(user) {
   return {user: user, type: 'SET_OTHER_USER'}
 }
