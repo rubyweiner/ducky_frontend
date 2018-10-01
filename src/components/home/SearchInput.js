@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Input, Button, Segment } from 'semantic-ui-react'
+import { Input, Button, Segment, Menu } from 'semantic-ui-react'
 import SearchResults from './SearchResults'
 
 class SearchInput extends Component {
@@ -48,6 +48,11 @@ class SearchInput extends Component {
     this.setState({filteredProfiles: filtered})
   }
 
+  onClick = (event) => {
+    event.preventDefault()
+    let profileId = event.target.className
+  }
+
   render() {
     return (
     <div>
@@ -68,7 +73,11 @@ class SearchInput extends Component {
         null
       :
         <Segment>
-          <SearchResults profiles={this.state.filteredProfiles} onClick={this.onClick}/>
+          <Menu.Menu>
+            {this.state.filteredProfiles.map(profile =>
+              <SearchResults profile={profile} />
+            )}
+          </Menu.Menu>
         </Segment>
       }
     </div>
