@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Divider, Feed, Header, Tab } from 'semantic-ui-react'
+import { Grid, Segment, Divider, Feed, Header, Tab, List } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Map from '../components/home/Map'
 import PostInput from '../components/profile/PostInput'
@@ -85,7 +85,13 @@ class HomePageContainer extends Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <Segment>
-              MEETUPS
+              <h3>Events</h3>
+              <Divider />
+              <List>
+                {this.props.user.events.map(event =>
+                  <List.Item as="a">{event.name}</List.Item>
+                )}
+              </List>
             </Segment>
             <Segment>
               SPOTIFY PLAYLIST ?

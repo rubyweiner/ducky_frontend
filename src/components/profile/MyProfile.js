@@ -287,9 +287,13 @@ class MyProfile extends Component {
               </Segment>
 
               <Segment>
-                <h4>MeetUps</h4>
+                <h4>Events</h4>
                 <Divider />
-                <Meetups />
+                <List>
+                  {this.props.user.events.map(event =>
+                    <List.Item as="a">{event.name}</List.Item>
+                  )}
+                </List>
               </Segment>
 
             </Grid.Column>
