@@ -24,6 +24,7 @@ class SearchResults extends Component {
     event.preventDefault()
     this.props.setOtherProfile(this.props.profile)
     this.props.setOtherUser(this.state.user)
+    this.props.setOtherSkills(this.state.user.skills)
     this.props.setOtherFollowers(this.state.user.followers)
     this.props.setOtherPosts(this.state.user.posts)
   }
