@@ -67,7 +67,7 @@ class HomePageContainer extends Component {
 
         <Grid columns="equal">
           <Grid.Column width={5}>
-            <h3>Search By...</h3>
+            <h3>Search Coders By...</h3>
             <Tab menu={{ text: true }} panes={panes} />
           </Grid.Column>
           <Grid.Column width={6}>
