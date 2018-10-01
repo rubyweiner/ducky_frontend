@@ -6,6 +6,7 @@ import NavBar from './containers/NavBar'
 import MyProfileContainer from './containers/MyProfileContainer'
 import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
+import EventsContainer from './containers/EventsContainer'
 import InboxContainer from './containers/InboxContainer'
 import { connect } from 'react-redux'
 import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setCurrentFollowers, setCurrentFollowing, setCurrentPosts, setOtherPosts } from './actions/actions.js'
@@ -63,6 +64,7 @@ class App extends Component {
         <Route exact path="/profile" component={MyProfileContainer} />
         <Route exact path={`/profile/${this.props.notMyProfile.first_name}_${this.props.notMyProfile.last_name}`} component={ProfileContainer}/>
         <Route exact path="/home" component={HomePageContainer} />
+        <Route exact path="/events" component={EventsContainer} />
         <Route exact path="/inbox" component={InboxContainer} />
      </div>
     )

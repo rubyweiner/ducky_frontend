@@ -37,6 +37,7 @@ class HomePageContainer extends Component {
   createPost = (event) => {
     event.preventDefault()
     let content = event.currentTarget.parentElement.querySelector(".ui input").value
+    // this.setState(user: this.props.user)
     event.currentTarget.parentElement.querySelector('input').value = ""
 
     fetch ('http://localhost:3000/posts', {
@@ -56,9 +57,6 @@ class HomePageContainer extends Component {
     .then(this.fetchAllPosts)
   }
 
-  onNameSearch = (event) => {
-    debugger
-  }
 
   render() {
 		return (

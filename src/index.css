@@ -72,3 +72,12 @@ body {
   width: 200px;
   text-align: left;
 }
+
+.eventImage {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}

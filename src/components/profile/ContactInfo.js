@@ -7,7 +7,7 @@ const ContactInfo = props => {
     <List >
       <List.Item icon='mail' content={<a href>{props.email}</a>}/>
       {props.github ?
-        <List.Item>GitHub: <a href={props.github}> {props.github}</a></List.Item>
+        <List.Item icon='github' content={<a href={props.github}> {props.github}</a>}/>
       :
         null
       }

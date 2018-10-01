@@ -30,7 +30,7 @@ class NavBar extends Component {
   }
 
   onClick = (event) => {
-    let profileId = event.target.className
+    let profileId = event.currentTarget.className
     this.props.viewProfile(profileId).then((json) => this.props.history.push(`/profile/${json.first_name}_${json.last_name}`))
   }
 
@@ -44,7 +44,7 @@ class NavBar extends Component {
         className="ui item"
         to="/home"
       >
-        <h2>Ducky</h2>
+        <h3>Ducky</h3>
       </NavLink>
 
       <div className="item">
@@ -94,6 +94,15 @@ class NavBar extends Component {
         >
           <Icon fitted name='home' size="large"/>
         </NavLink>
+
+        <NavLink
+          activeClassName="ui active item"
+          className="ui item"
+          to="/events"
+        >
+          <Icon fitted name='calendar' size="large"/>
+        </NavLink>
+
 
         <NavLink
           activeClassName="ui active item"
