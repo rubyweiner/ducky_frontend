@@ -109,7 +109,7 @@ class SkillsContainer extends Component {
           }
         </Grid.Column>
         <Grid.Column width={6}>
-          <Header as="h3">Search Results <Button basic floated="right" size="tiny" onClick={this.editSkills}>Clear</Button></Header>
+          <Header as="h3">Search Results <Button basic floated="right" size="tiny" onClick={this.clearCoders}>Clear</Button></Header>
           <Divider />
           <Menu size="large" vertical fluid>
             { this.state.skill ?
@@ -130,7 +130,7 @@ class SkillsContainer extends Component {
           </Menu>
         </Grid.Column>
         <Grid.Column width={5}>
-          <Header as="h3">My Skills <Button basic floated="right" size="tiny" onClick={this.clearCoders}>Edit</Button></Header>
+          <Header as="h3">My Skills </Header>
           <Divider />
           <List>
             {this.props.skills.map(skill =>
@@ -168,3 +168,5 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps)(SkillsContainer)
+
+// <Button basic floated="right" size="tiny" onClick={this.clearCoders}>Edit</Button>
