@@ -77,11 +77,6 @@ class NotMyProfile extends Component {
                   null
                 }
             </Segment>
-            <Segment>
-              <h4>MeetUps</h4>
-              <Divider />
-              <Meetups />
-            </Segment>
           </Grid.Column>
           <Grid.Column width={6}>
             <Segment>

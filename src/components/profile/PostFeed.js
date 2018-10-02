@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux'
-import { Feed, Icon } from 'semantic-ui-react'
+import { Feed, Icon, Button } from 'semantic-ui-react'
 
 class PostFeed extends Component {
 
@@ -19,7 +19,9 @@ class PostFeed extends Component {
             {this.props.post.content}
           </Feed.Extra>
         </Feed.Content>
+        <Icon link name="trash alternate outline" floated="right" size="small" onClick={() => this.props.onClick(this.props.postId)}/>
       </Feed.Event>
+
 
     )
   }

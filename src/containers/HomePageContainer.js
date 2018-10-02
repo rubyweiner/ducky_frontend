@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Divider, Feed, Header, Tab, List } from 'semantic-ui-react'
+import { Grid, Segment, Divider, Feed, Header, Tab, List, Modal, Button, Icon, Card, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Map from '../components/home/Map'
 import PostInput from '../components/profile/PostInput'
@@ -60,7 +60,7 @@ class HomePageContainer extends Component {
 
   render() {
 		return (
-    <Segment>
+    <Segment >
         <Divider/>
 
         <Grid columns="equal">
@@ -89,7 +89,26 @@ class HomePageContainer extends Component {
               <Divider />
               <List>
                 {this.props.user.events.map(event =>
-                  <List.Item as="a">{event.name}</List.Item>
+                  <Modal trigger={<List.Item as="a">{event.name}</List.Item>} basic size='small' >
+                     <Modal.Content>
+                       <Card fluid raised>
+                         <div className="eventImage">
+                           <Image src={event.cover_photo}/>
+                         </div>
+                        <Card.Content>
+                         <Card.Header>{event.name}</Card.Header>
+                         <Card.Meta>
+                           <span className='date'>Hosted By: </span>
+                         </Card.Meta>
+                         <Divider />
+                         <Card.Description><h5>Date: </h5>{event.date}</Card.Description>
+                         <Card.Description><h5>Time: </h5>{event.time}</Card.Description>
+                         <Card.Description><h5>Location: </h5>{event.location}</Card.Description>
+                         <Card.Description><h5>Description: </h5>{event.description}</Card.Description>
+                       </Card.Content>
+                       </Card>
+                     </Modal.Content>
+                   </Modal>
                 )}
               </List>
             </Segment>

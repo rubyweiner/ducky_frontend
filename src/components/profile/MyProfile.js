@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers, setCurrentPosts } from '../../actions/actions.js'
-import { Image, Grid, Segment, Divider, Header, Button, Icon, List, Feed } from 'semantic-ui-react'
+import { Image, Grid, Segment, Divider, Header, Button, Icon, List, Feed, Modal, Card } from 'semantic-ui-react'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
 import PersonalInfoForm from './PersonalInfoForm'
@@ -165,11 +165,11 @@ class MyProfile extends Component {
 
   deleteSkill = (event) => {
     event.preventDefault()
-    let skill = event.currentTarget.parentElement.innerText
-    this.deleteUserSkill(skill)
+    let skillId = event.target.parentElement.className
+    this.deleteUserSkill(skillId)
   }
 
-  deleteUserSkill = (skill) => {
+  deleteUserSkill = (skillId) => {
     //doesnt work
   }
 
@@ -203,6 +203,22 @@ class MyProfile extends Component {
     })
   }
 
+  deletePost = (postId) => {
+    fetch(`http://localhost:3000/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(this.fetchPosts)
+  }
+
+  // fetchUser = () => {
+  //   fetch(`http://localhost:3000/usrs/${this.props.user.id}`)
+  //   .then(response => response.json())
+  //   .then(json => this.props.setCurrentUser(json))
+  // }
 
 
   render() {
@@ -224,7 +240,7 @@ class MyProfile extends Component {
           {this.state.editBioMode ?
             <BioForm onSubmit={this.updateBio}/>
           :
-            <p> {this.props.profile.bio} {<Icon name='pencil' size="small" onClick={this.editBio}/>}</p>
+            <p> {this.props.profile.bio} {<Icon link name='pencil' size="small" onClick={this.editBio}/>}</p>
           }
 
           <Divider />
@@ -232,7 +248,7 @@ class MyProfile extends Component {
           <Grid columns="equal">
             <Grid.Column width={5}>
               <Segment>
-                <h4>Personal Info {<Icon name='pencil' size="small" onClick={this.editPersonalInfo}/>}</h4>
+                <h4>Personal Info {<Icon link name='pencil' size="small" onClick={this.editPersonalInfo}/>}</h4>
 
                 <Divider />
                 {this.state.editPersonalInfoMode ?
@@ -249,7 +265,7 @@ class MyProfile extends Component {
               </Segment>
 
               <Segment>
-                <h4>Contact Info {<Icon name='pencil' size="small" floated="right" onClick={this.editContactInfo}/>}</h4>
+                <h4>Contact Info {<Icon link name='pencil' size="small" floated="right" onClick={this.editContactInfo}/>}</h4>
                 <Divider />
                 {this.state.editContactInfoMode ?
                   <ContactInfoForm onSubmit={this.updateContactInfo} />
@@ -263,7 +279,7 @@ class MyProfile extends Component {
               </Segment>
 
               <Segment>
-                <h4>Skills {<Icon name='pencil' size="small" onClick={this.editSkills}/>}</h4>
+                <h4>Skills {<Icon link name='pencil' size="small" onClick={this.editSkills}/>}</h4>
                 <Divider />
                 {this.state.addSkillsMode ?
                   <SkillForm onSubmit={this.findSkill}/>
@@ -285,17 +301,6 @@ class MyProfile extends Component {
 
 
               </Segment>
-
-              <Segment>
-                <h4>Events</h4>
-                <Divider />
-                <List>
-                  {this.props.user.events.map(event =>
-                    <List.Item as="a">{event.name}</List.Item>
-                  )}
-                </List>
-              </Segment>
-
             </Grid.Column>
             <Grid.Column width={6}>
               <PostInput onClick={this.createPost}/>
@@ -305,9 +310,11 @@ class MyProfile extends Component {
                     this.props.posts.reverse().map(post =>
                       <PostFeed
                         post={post}
+                        postId={post.id}
                         first_name={this.props.profile.first_name}
                         last_name={this.props.profile.last_name}
                         profile_pic={this.props.profile.profile_pic}
+                        onClick={this.deletePost}
                       />
                     )
                   :
@@ -320,6 +327,35 @@ class MyProfile extends Component {
 
             </Grid.Column>
             <Grid.Column width={5}>
+              <Segment>
+                <h4>Events</h4>
+                <Divider />
+                <List>
+                  {this.props.user.events.map(event =>
+                    <Modal trigger={<List.Item as="a">{event.name}</List.Item>} basic size='small' >
+                       <Modal.Content>
+                         <Card fluid raised>
+                           <div className="eventImage">
+                             <Image src={event.cover_photo}/>
+                           </div>
+                          <Card.Content>
+                           <Card.Header>{event.name}</Card.Header>
+                           <Card.Meta>
+                             <span className='date'>Hosted By: </span>
+                           </Card.Meta>
+                           <Divider />
+                           <Card.Description><h5>Date: </h5>{event.date}</Card.Description>
+                           <Card.Description><h5>Time: </h5>{event.time}</Card.Description>
+                           <Card.Description><h5>Location: </h5>{event.location}</Card.Description>
+                           <Card.Description><h5>Description: </h5>{event.description}</Card.Description>
+                         </Card.Content>
+                         </Card>
+                       </Modal.Content>
+                     </Modal>
+                  )}
+                </List>
+              </Segment>
+
               <Segment>
                 <h4>Following</h4>
                 <Divider />

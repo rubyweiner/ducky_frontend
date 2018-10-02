@@ -8,6 +8,7 @@ import ProfileContainer from './containers/ProfileContainer'
 import HomePageContainer from './containers/HomePageContainer'
 import EventsContainer from './containers/EventsContainer'
 import InboxContainer from './containers/InboxContainer'
+import SkillsContainer from './containers/SkillsContainer'
 import { connect } from 'react-redux'
 import { setCurrentUser, setCurrentProfile, setCurrentSkills, setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setCurrentFollowers, setCurrentFollowing, setCurrentPosts, setOtherPosts } from './actions/actions.js'
 
@@ -66,6 +67,7 @@ class App extends Component {
         <Route exact path="/home" component={HomePageContainer} />
         <Route exact path="/events" component={EventsContainer} />
         <Route exact path="/inbox" component={InboxContainer} />
+        <Route exact path="/skills" component={SkillsContainer} />
      </div>
     )
 

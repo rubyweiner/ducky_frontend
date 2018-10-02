@@ -25,7 +25,7 @@ class EventsContainer extends Component {
 
   render() {
 		return (
-    <Segment>
+    <Segment >
     <Header as="h2" textAlign="left">Events</Header>
     <Divider />
       <Grid columns="equal">

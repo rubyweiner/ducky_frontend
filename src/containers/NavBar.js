@@ -59,7 +59,7 @@ class NavBar extends Component {
               placeholder="Search"
               value={this.state.query}
               onChange={(event) => {
-                this.setState({query: event.currentTarget.value})
+                this.setState({query: event.currentTarget.value.toLowerCase()})
                 this.fetchProfiles(event.currentTarget.value.toLowerCase())
                 }
               }
@@ -101,6 +101,14 @@ class NavBar extends Component {
           to="/events"
         >
           <Icon fitted name='calendar' size="large"/>
+        </NavLink>
+
+        <NavLink
+          activeClassName="ui active item"
+          className="ui item"
+          to="/skills"
+        >
+          <Icon fitted name='keyboard' size="large"/>
         </NavLink>
 
 
