@@ -115,10 +115,6 @@ class NotMyProfile extends Component {
               </List>
             </Segment>
 
-            <Segment>
-              SPOTIFY PLAYLIST?
-            </Segment>
-
           </Grid.Column>
         </Grid>
       </Segment>

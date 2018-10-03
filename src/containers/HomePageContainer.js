@@ -96,9 +96,7 @@ class HomePageContainer extends Component {
                 )}
               </List>
             </Segment>
-            <Segment>
-              SPOTIFY PLAYLIST ?
-            </Segment>
+          
           </Grid.Column>
 
         </Grid>

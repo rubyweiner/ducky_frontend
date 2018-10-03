@@ -62,11 +62,11 @@ class EventsContainer extends Component {
   }
 
   profileView = (profile) => {
-    this.fetchUser(profile.user_id)
+    this.fetchInvitee(profile.user_id)
     this.props.setOtherProfile(profile)
   }
 
-  fetchUser = (userId) => {
+  fetchInvitee = (userId) => {
     fetch(`http://localhost:3000/users/${userId}`)
     .then(response => response.json())
     .then(json => {

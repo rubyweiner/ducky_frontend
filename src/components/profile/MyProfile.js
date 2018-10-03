@@ -356,9 +356,7 @@ class MyProfile extends Component {
                 }
               </Segment>
 
-              <Segment>
-                SPOTIFY PLAYLIST?
-              </Segment>
+            
             </Grid.Column>
           </Grid>
         </Segment>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Menu, Image, Input, Icon } from 'semantic-ui-react'
+import { Menu, Image, Input, Icon, Modal, Header } from 'semantic-ui-react'
 import { NavLink } from "react-router-dom";
 import SearchResults from './SearchResults'
 
@@ -38,13 +38,9 @@ class NavBar extends Component {
   render() {
 		return (
     <div className={`ui menu navbar`}>
-      <NavLink
-        activeClassName="ui active item"
-        className="ui item"
-        to="/home"
-      >
+      <div className="item">
         <h3>Ducky</h3>
-      </NavLink>
+      </div>
 
       <div className="item">
       <Menu secondary vertical>
@@ -76,15 +72,6 @@ class NavBar extends Component {
       </Menu>
       </div>
       <div className="right menu">
-        <NavLink
-          exact
-          to="/profile"
-          className="ui item"
-          activeClassName="ui active item"
-        >
-          <Image src={this.props.profile.profile_pic} avatar/>
-          {this.props.profile.first_name} {this.props.profile.last_name}
-        </NavLink>
 
         <NavLink
           activeClassName="ui active item"
@@ -110,13 +97,29 @@ class NavBar extends Component {
           <Icon fitted name='keyboard' size="large"/>
         </NavLink>
 
+<Modal trigger={
+        <div className="item">
+          <Icon link fitted name='mail' size="large"/>
+        </div>
+} basic size='small'>
+    <Modal.Content>
+      <Header as='h1' textAlign='center' inverted>
+        Inbox Coming Soon
+      </Header>
+    </Modal.Content>
+
+  </Modal>
+
+
 
         <NavLink
-          activeClassName="ui active item"
+          exact
+          to="/profile"
           className="ui item"
-          to="/inbox"
+          activeClassName="ui active item"
         >
-          <Icon fitted name='mail' size="large"/>
+          <Image src={this.props.profile.profile_pic} avatar/>
+          {this.props.profile.first_name} {this.props.profile.last_name}
         </NavLink>
 
         <NavLink

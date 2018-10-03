@@ -66,7 +66,7 @@ class App extends Component {
         <Route exact path={`/profile/${this.props.notMyProfile.first_name}_${this.props.notMyProfile.last_name}`} component={ProfileContainer}/>
         <Route exact path="/home" component={HomePageContainer} />
         <Route exact path="/events" component={EventsContainer} />
-        <Route exact path="/inbox" component={InboxContainer} />
+
         <Route exact path="/skills" component={SkillsContainer} />
      </div>
     )
@@ -115,3 +115,5 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// <Route exact path="/inbox" component={InboxContainer} />
