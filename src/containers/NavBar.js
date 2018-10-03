@@ -29,8 +29,7 @@ class NavBar extends Component {
     this.setState({filteredProfiles: filtered})
   }
 
-  onClick = (event) => {
-    let profileId = event.currentTarget.className
+  onClick = (profileId) => {
     this.props.viewProfile(profileId).then((json) => this.props.history.push(`/profile/${json.first_name}_${json.last_name}`))
   }
 

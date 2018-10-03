@@ -9,7 +9,7 @@ class SearchResults extends Component {
 		return (
       <Menu.Menu>
         {this.props.profiles.map(profile =>
-          <Menu.Item link onClick={(event) => this.props.onClick(event)}>
+          <Menu.Item link onClick={() => this.props.onClick(profile.id)}>
             <div className={profile.id}>
               <Image src={profile.profile_pic} avatar/> {profile.first_name} {profile.last_name}
             </div>

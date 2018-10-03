@@ -49,28 +49,20 @@ class SkillsContainer extends Component {
 
   profileView = (profile) => {
     this.fetchUser(profile.user_id)
-    this.fetchProfile(profile.id)
-    this.props.setOtherProfile(this.state.profile)
-    this.props.setOtherUser(this.state.user)
-    this.props.setOtherSkills(this.state.user.skills)
-    this.props.setOtherFollowers(this.state.user.followers)
-    this.props.setOtherPosts(this.state.user.posts)
+    this.props.setOtherProfile(profile)
   }
 
   fetchUser = (userId) => {
     fetch(`http://localhost:3000/users/${userId}`)
     .then(response => response.json())
-    .then(json => this.setState({user: json}))
-    .then({
-
+    .then(json => {
+      this.props.setOtherUser(json)
+      this.props.setOtherSkills(json.skills)
+      this.props.setOtherFollowers(json.followers)
+      this.props.setOtherPosts(json.posts)
     })
   }
 
-  fetchProfile = (profileId) => {
-    fetch(`http://localhost:3000/profiles/${profileId}`)
-    .then(response => response.json())
-    .then(json => this.setState({profile: json}))
-  }
 
   clearCoders = () => {
     this.setState({skill: null})
@@ -167,6 +159,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(mapStateToProps)(SkillsContainer)
-
-// <Button basic floated="right" size="tiny" onClick={this.clearCoders}>Edit</Button>
+export default connect(mapStateToProps, mapDispatchToProps)(SkillsContainer)

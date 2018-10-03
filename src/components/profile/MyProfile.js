@@ -13,6 +13,7 @@ import Meetups from './Meetups'
 import Followships from './Followships'
 import PostInput from './PostInput'
 import PostFeed from './PostFeed'
+import EventModal from './EventModal'
 
 
 class MyProfile extends Component {
@@ -331,26 +332,9 @@ class MyProfile extends Component {
                 <h4>Events</h4>
                 <Divider />
                 <List>
-                  {this.props.user.events.map(event =>
-                    <Modal trigger={<List.Item as="a">{event.name}</List.Item>} basic size='small' >
-                       <Modal.Content>
-                         <Card fluid raised>
-                           <div className="eventImage">
-                             <Image src={event.cover_photo}/>
-                           </div>
-                          <Card.Content>
-                           <Card.Header>{event.name}</Card.Header>
-                           <Card.Meta>
-                             <span className='date'>Hosted By: </span>
-                           </Card.Meta>
-                           <Divider />
-                           <Card.Description><h5>Date: </h5>{event.date}</Card.Description>
-                           <Card.Description><h5>Time: </h5>{event.time}</Card.Description>
-                           <Card.Description><h5>Location: </h5>{event.location}</Card.Description>
-                           <Card.Description><h5>Description: </h5>{event.description}</Card.Description>
-                         </Card.Content>
-                         </Card>
-                       </Modal.Content>
+                  {this.props.user.events.map(e =>
+                    <Modal trigger={<List.Item as="a">{e.name}</List.Item>} basic size='small' >
+                       <EventModal e={e}/>
                      </Modal>
                   )}
                 </List>
