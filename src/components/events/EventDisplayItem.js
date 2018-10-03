@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 class EventDisplayItem extends Component {
 
   state = {
+    host: false,
     first_name: null,
     last_name: null,
-    profileId: null
+    hostId: null
   }
 
   componentDidMount() {
@@ -21,9 +22,32 @@ class EventDisplayItem extends Component {
       this.setState({
         first_name: json.profile.first_name,
         last_name: json.profile.last_name,
-        profileId: json.profile.id
+        hostId: json.profile.id
       })
     })
+  }
+
+  leaveEvent = () => {
+    if (this.state.hostId === this.props.user.id) {
+      this.patchEvent()
+    } else {
+      this.deleteUserEvent()
+    }
+  }
+
+  patchEvent = () => {
+    fetch(`http://localhost:3000/events/${this.props.currentEvent.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        host_id: null
+      })
+    })
+    .then(response => response.json())
+    .then(json => console.log(json))
   }
 
 
@@ -49,7 +73,7 @@ class EventDisplayItem extends Component {
         <Card.Description><h5>Description: </h5>{this.props.currentEvent.description}</Card.Description>
       </Card.Content>
 
-        <Button>Leave Event</Button>
+        <Button onClick={this.leaveEvent}>Leave Event</Button>
 
       </Card>
     )

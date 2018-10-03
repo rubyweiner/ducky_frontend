@@ -12,9 +12,7 @@ class SkillsContainer extends Component {
     query: '',
     allSkills: [],
     filteredSkills: [],
-    skill: null,
-    user: null,
-    profile: null
+    skill: null
   }
 
   onChange = (event) => {

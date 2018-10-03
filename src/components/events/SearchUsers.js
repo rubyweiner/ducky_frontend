@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Input, Button, Segment, Menu } from 'semantic-ui-react'
 import SearchResults from './SearchResults'
 
-class SearchInput extends Component {
 
+class SearchUsers extends Component {
   state = {
     skills: [],
     query: '',
@@ -12,14 +12,9 @@ class SearchInput extends Component {
     filteredProfiles: []
   }
 
-  componentDidMount() {
-    this.fetchSkills()
-  }
 
-  fetchSkills = () => {
-    fetch('http://localhost:3000/skills')
-    .then(response => response.json())
-    .then(json => this.setState({skills: json}))
+  onClick = (userId) => {
+    this.props.addInvitee(userId)
   }
 
   onChange = (event) => {
@@ -31,26 +26,11 @@ class SearchInput extends Component {
     .then(this.filterProfiles(this.state.query))
   }
 
-
   filterProfiles = (query) => {
     let profiles = this.state.profiles
-    let skills = this.state.skills
-    let skill = []
     let filtered = []
-    if (this.props.filter === "name") {
-      filtered = profiles.filter(profile => profile.first_name.toLowerCase().includes(query))
-    } else if (this.props.filter === "skill") {
-        skill = skills.filter(skill => skill.name.toLowerCase().includes(query))
-        filtered = skill[0].profiles
-    } else if (this.props.filter === "location") {
-        filtered = profiles.filter(profile => profile.current_location.toLowerCase().includes(query))
-    }
+    filtered = profiles.filter(profile => profile.first_name.toLowerCase().includes(query.toLowerCase()))
     this.setState({filteredProfiles: filtered})
-  }
-
-  onClick = (event) => {
-    event.preventDefault()
-    let profileId = event.target.className
   }
 
   render() {
@@ -73,13 +53,13 @@ class SearchInput extends Component {
         null
       :
 
-          <Menu vertical fluid>
-            {this.state.filteredProfiles.map(profile =>
-              <SearchResults profile={profile} />
-            )}
-          </Menu>
-        
+        <Menu vertical fluid>
+          {this.state.filteredProfiles.map(profile =>
+            <SearchResults profile={profile} onClick={this.onClick}/>
+          )}
+        </Menu>
       }
+
     </div>
 
     )
@@ -91,4 +71,4 @@ const mapStateToProps = state => {
   return { user: state.user, profile: state.profile }
 }
 
-export default connect(mapStateToProps)(SearchInput)
+export default connect(mapStateToProps)(SearchUsers)
