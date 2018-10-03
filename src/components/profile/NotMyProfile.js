@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setOtherPosts} from '../../actions/actions.js'
+import { setOtherUser, setOtherProfile, setOtherSkills, setOtherFollowers, setOtherPosts, setCurrentFollowing, addFollowing} from '../../actions/actions.js'
 import { Image, Grid, Segment, Divider, Header, List, Feed } from 'semantic-ui-react'
 import Bio from './Bio'
 import PersonalInfo from './PersonalInfo'
@@ -11,11 +11,58 @@ import AddFriendButton from './AddFriendButton'
 import Followships from './Followships'
 import PostInput from './PostInput'
 import PostFeed from './PostFeed'
+import UnfollowButton from './UnfollowButton'
 
 
 class NotMyProfile extends Component {
   state = {
-    following: false
+    following: false,
+    currentFollowship: {}
+  }
+
+  componentDidMount() {
+    this.isFollowing()
+  }
+
+  isFollowing = () => {
+    let following = this.props.following
+    let currentFollowship = []
+    if (following.filter(value => value.user_id === this.props.notMyUser.id).length > 0) {
+      currentFollowship = following.filter(followship => followship.user_id === this.props.notMyUser.id)
+      this.setState({
+        following: true,
+        currentFollowship: currentFollowship[0]
+      })
+    }
+  }
+
+  removeFollowing = () => {
+    let following = this.props.following
+    following.splice( following.indexOf(this.state.currentFollowship), 1)
+    this.props.setCurrentFollowing(following)
+    this.fetchNotMyUser()
+    this.setState({
+      following: false,
+      currentFollowship: {}
+    })
+  }
+
+  addFollowing = (followship) => {
+    debugger
+    this.setState({
+      following: true,
+      currentFollowship: followship
+    })
+    let following = this.props.following
+    following.push(followship)
+    this.props.setCurrentFollowing(following)
+    this.fetchNotMyUser()
+  }
+
+  fetchNotMyUser = () => {
+    fetch (`http://localhost:3000/users/${this.props.notMyUser.id}`)
+    .then(response => response.json())
+    .then(json => this.props.setOtherFollowers(json.followers))
   }
 
   render() {
@@ -100,7 +147,11 @@ class NotMyProfile extends Component {
 
           </Grid.Column>
           <Grid.Column width={5}>
-              <AddFriendButton following={this.state.following}/>
+            {this.state.following ?
+              <UnfollowButton removeFollowing={this.removeFollowing} currentFollowship={this.state.currentFollowship}/>
+            :
+              <AddFriendButton addFollowing={this.addFollowing} currentFollowship={this.state.currentFollowship}/>
+            }
             <Segment>
               <h4>Followers</h4>
               <Divider />
@@ -124,6 +175,7 @@ class NotMyProfile extends Component {
 
 const mapStateToProps = state => {
   return {
+    following: state.following,
     notMyUser: state.notMyUser,
     notMyProfile: state.notMyProfile,
     notMySkills: state.notMySkills,
@@ -134,11 +186,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setCurrentFollowing: following => dispatch(setCurrentFollowing(following)),
     setOtherUser: notMyUser => dispatch(setOtherUser(notMyUser)),
     setOtherProfile: notMyProfile => dispatch(setOtherProfile(notMyProfile)),
     setOtherSkills: notMySkills => dispatch(setOtherSkills(notMySkills)),
     setOtherFollowers: notMyFollowers => dispatch(setOtherFollowers(notMyFollowers)),
-    setOtherPosts: notMyPosts => dispatch(setOtherPosts(notMyPosts))
+    setOtherPosts: notMyPosts => dispatch(setOtherPosts(notMyPosts)),
+    addFollowing: following => dispatch(addFollowing(following))
   }
 }
 

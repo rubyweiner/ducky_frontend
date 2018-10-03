@@ -4,8 +4,8 @@ import { addFollowing } from '../../actions/actions.js'
 import { Button } from 'semantic-ui-react'
 
 class AddFriendButton extends Component {
-  state = {
-    following: this.props.following
+  addFollowing = (followship) => {
+    this.props.addFollowing(followship)
   }
 
   createFollowship= () => {
@@ -18,26 +18,21 @@ class AddFriendButton extends Component {
       body: JSON.stringify({
         user_id: this.props.notMyUser.id,
         follower_id: this.props.user.id
-
       })
     })
     .then(response => response.json())
     .then(json => {
       console.log(json)
-      this.setState({following: true})
-      debugger
-      this.props.addFollowing(json.user_id)
-      // debugger
+      this.addFollowing(json)
     })
 
   }
 
   render() {
     return (
-      <Button basic onClick={this.createFollowship}>
-        Follow
-      </Button>
-
+        <Button basic fluid onClick={this.createFollowship}>
+          Follow
+        </Button>
     )
   }
 
@@ -50,10 +45,6 @@ const mapStateToProps = state => {
    }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addFollowing: following => dispatch(addFollowing(following))
-  }
-}
+
 
 export default connect(mapStateToProps)(AddFriendButton)

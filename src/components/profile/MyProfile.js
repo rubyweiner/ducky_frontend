@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowers, setCurrentPosts } from '../../actions/actions.js'
+import { setCurrentUser, setCurrentProfile, setCurrentSkills, setCurrentFollowing, setCurrentFollowers, setCurrentPosts } from '../../actions/actions.js'
 import { Image, Grid, Segment, Divider, Header, Button, Icon, List, Feed, Modal, Card } from 'semantic-ui-react'
 import BioForm from './BioForm'
 import PersonalInfo from './PersonalInfo'
@@ -22,11 +22,14 @@ class MyProfile extends Component {
     editPersonalInfoMode: false,
     editContactInfoMode: false,
     editSkillsMode: false,
-    addSkillsMode: false
+    addSkillsMode: false,
+    allFollowships: null,
+    following: null
   }
 
   componentDidMount() {
     this.fetchPosts()
+    this.setFollowing()
   }
 
   editBio = () => {
@@ -215,11 +218,23 @@ class MyProfile extends Component {
     .then(this.fetchPosts)
   }
 
-  // fetchUser = () => {
-  //   fetch(`http://localhost:3000/usrs/${this.props.user.id}`)
-  //   .then(response => response.json())
-  //   .then(json => this.props.setCurrentUser(json))
-  // }
+  setFollowing = () => {
+    fetch(`http://localhost:3000/followships`)
+    .then(response => response.json())
+    .then(json => this.setState({allFollowships: json}))
+    .then(this.filterFollowships)
+  }
+
+  filterFollowships = () => {
+    let followships = this.state.allFollowships
+    let filtered = []
+    followships ?
+     filtered = followships.filter(followship => followship.follower_id === this.props.user.id)
+    :
+      null
+    this.setState({following: filtered})
+    this.props.setCurrentFollowing(filtered)
+  }
 
 
   render() {
@@ -343,6 +358,13 @@ class MyProfile extends Component {
               <Segment>
                 <h4>Following</h4>
                 <Divider />
+                {this.props.following ?
+                  this.props.following.map(following =>
+                    <Followships follower={following.user}/>
+                  )
+                :
+                  null
+                }
               </Segment>
               <Segment>
                 <h4>Followers</h4>
@@ -356,7 +378,7 @@ class MyProfile extends Component {
                 }
               </Segment>
 
-            
+
             </Grid.Column>
           </Grid>
         </Segment>
@@ -370,7 +392,8 @@ const mapStateToProps = state => {
     profile: state.profile,
     skills: state.skills,
     followers: state.followers,
-    posts: state.posts
+    posts: state.posts,
+    following: state.following
    }
 }
 
@@ -380,6 +403,7 @@ const mapDispatchToProps = dispatch => {
     setCurrentProfile: profile => dispatch(setCurrentProfile(profile)),
     setCurrentSkills: skills => dispatch(setCurrentSkills(skills)),
     setCurrentFollowers: followers => dispatch(setCurrentFollowers(followers)),
+    setCurrentFollowing: following => dispatch(setCurrentFollowing(following)),
     setCurrentPosts: posts => dispatch(setCurrentPosts(posts))
   }
 }
