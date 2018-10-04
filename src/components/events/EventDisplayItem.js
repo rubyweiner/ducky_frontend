@@ -52,6 +52,7 @@ class EventDisplayItem extends Component {
 
 
   render() {
+    
     return (
       <Card fluid raised>
         <div className="eventImage">

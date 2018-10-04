@@ -356,7 +356,7 @@ class MyProfile extends Component {
               </Segment>
 
               <Segment>
-                <h4>Following</h4>
+                <h4>Following ({this.props.following ? this.props.following.length : 0})</h4>
                 <Divider />
                 {this.props.following ?
                   this.props.following.map(following =>
@@ -367,7 +367,7 @@ class MyProfile extends Component {
                 }
               </Segment>
               <Segment>
-                <h4>Followers</h4>
+                <h4>Followers ({this.props.followers ? this.props.followers.length : 0})</h4>
                 <Divider />
                 {this.props.followers ?
                   this.props.followers.map(follower =>

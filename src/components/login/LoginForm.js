@@ -18,7 +18,7 @@ class LoginForm extends Component {
              </Form.Field>
              <Form.Field>
                <label>Password</label>
-               <input placeholder='password' />
+               <input placeholder='password' type='password'/>
              </Form.Field>
              <div className='ui two buttons'>
                <Button basic color="grey" type='submit'>Sign Up</Button>
@@ -36,7 +36,7 @@ class LoginForm extends Component {
              </Form.Field>
              <Form.Field>
                <label>Password</label>
-               <input placeholder='password' />
+               <input placeholder='password' type='password'/>
              </Form.Field>
              <div className='ui two buttons'>
                <Button basic color="grey" type='submit'>Sign In</Button>

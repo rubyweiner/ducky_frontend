@@ -153,7 +153,7 @@ class NotMyProfile extends Component {
               <AddFriendButton addFollowing={this.addFollowing} currentFollowship={this.state.currentFollowship}/>
             }
             <Segment>
-              <h4>Followers</h4>
+              <h4>Followers ({this.props.notMyFollowers ? this.props.notMyFollowers.length : 0})</h4>
               <Divider />
               <List>
                 {this.props.notMyFollowers ?

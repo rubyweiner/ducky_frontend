@@ -38,9 +38,14 @@ class NavBar extends Component {
   render() {
 		return (
     <div className={`ui menu navbar`}>
-      <div className="item">
+      <NavLink
+        activeClassName="ui active item"
+        className="ui item"
+        to="/about"
+      >
         <h3>Ducky</h3>
-      </div>
+      </NavLink>
+
 
       <div className="item">
       <Menu secondary vertical>

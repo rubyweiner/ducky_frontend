@@ -112,7 +112,7 @@ class LoginContainer extends Component {
           this.props.setCurrentFollowing([])
           this.props.setCurrentPosts(json.user.posts)
           localStorage.setItem("token", json.jwt);
-          this.props.history.push('/home')
+          this.props.history.push('/about')
         }
       })
   }
@@ -133,7 +133,9 @@ class LoginContainer extends Component {
             />
           :
           <Segment padded>
-            <Card.Header as="h2" id="loginTitle">Welcome to Ducky</Card.Header>
+            <Segment>
+              <Card.Header as="h2" id="loginTitle" centered >Welcome to Ducky</Card.Header>
+            </Segment>
             <Card.Content>
               <SignInButton onClick={this.handleSignIn}/>
               <Divider horizontal>Or</Divider>

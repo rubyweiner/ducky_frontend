@@ -96,7 +96,7 @@ class HomePageContainer extends Component {
                 )}
               </List>
             </Segment>
-          
+
           </Grid.Column>
 
         </Grid>
