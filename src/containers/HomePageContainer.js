@@ -61,7 +61,7 @@ class HomePageContainer extends Component {
 
   render() {
 		return (
-    <Segment >
+    <Segment secondary>
         <Divider/>
 
         <Grid columns="equal">
