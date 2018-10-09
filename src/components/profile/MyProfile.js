@@ -258,7 +258,8 @@ class MyProfile extends Component {
           {this.state.editBioMode ?
             <BioForm onSubmit={this.updateBio}/>
           :
-            <p> {this.props.profile.bio} {<Icon link name='pencil' size="small" onClick={this.editBio}/>} </p>
+            <div>{this.props.profile.bio} <Icon link name='pencil' size="small" floated="right" onClick={this.editBio}/></div>
+
           }
 
           <Divider />
@@ -266,7 +267,7 @@ class MyProfile extends Component {
           <Grid columns="equal">
             <Grid.Column width={5}>
               <Segment>
-                <h4>Personal Info {<Icon link name='pencil' size="small" onClick={this.editPersonalInfo}/>}</h4>
+                <h4>Personal Info <Icon link name='pencil' size="small" floated="right" onClick={this.editPersonalInfo}/></h4>
 
                 <Divider />
                 {this.state.editPersonalInfoMode ?
