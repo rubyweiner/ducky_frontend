@@ -99,8 +99,21 @@ class NavBar extends Component {
           className="ui item"
           to="/skills"
         >
-          <Icon fitted name='keyboard' size="large"/>
+          <Icon fitted name='clipboard list' size="large"/>
         </NavLink>
+
+<Modal trigger={
+        <div className="item">
+          <Icon link fitted name='keyboard' size="large"/>
+        </div>
+} basic size='small'>
+    <Modal.Content>
+      <Header as='h1' textAlign='center' inverted>
+        MySnippets Coming Soon
+      </Header>
+    </Modal.Content>
+
+</Modal>
 
 <Modal trigger={
         <div className="item">

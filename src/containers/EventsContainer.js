@@ -78,7 +78,6 @@ class EventsContainer extends Component {
   }
 
   createEvent = (e) => {
-    e.preventDefault()
     let name = e[0].value
     let date = e[1].value
     let time = e[2].value
