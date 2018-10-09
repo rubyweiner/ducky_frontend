@@ -8,6 +8,10 @@ class BioForm extends Component {
     return (
       <Form size="tiny" onSubmit={(event) => this.props.onSubmit(event)}>
         <Form.Field>
+          <label>Profile Picture URL</label>
+          <input placeholder={this.props.profile.profile_pic}/>
+          <label>Cover Photo URL</label>
+          <input placeholder={this.props.profile.cover_photo}/>
           <label>Bio</label>
           <input placeholder={this.props.profile.bio}/>
         </Form.Field>

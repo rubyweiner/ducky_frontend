@@ -120,7 +120,9 @@ class MyProfile extends Component {
       },
       body: JSON.stringify(
         {
-          bio: data[0].value
+          profile_pic: data[0].value,
+          cover_photo: data[1].value,
+          bio: data[2].value
         })
     })
       .then(response => response.json())
@@ -256,7 +258,7 @@ class MyProfile extends Component {
           {this.state.editBioMode ?
             <BioForm onSubmit={this.updateBio}/>
           :
-            <p> {this.props.profile.bio} {<Icon link name='pencil' size="small" onClick={this.editBio}/>}</p>
+            <p> {this.props.profile.bio} {<Icon link name='pencil' size="small" onClick={this.editBio}/>} </p>
           }
 
           <Divider />
