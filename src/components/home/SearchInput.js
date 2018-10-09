@@ -41,7 +41,7 @@ class SearchInput extends Component {
       filtered = profiles.filter(profile => profile.first_name.toLowerCase().includes(query))
     } else if (this.props.filter === "skill") {
         skill = skills.filter(skill => skill.name.toLowerCase().includes(query))
-        filtered = skill[0].profiles
+        skill[0] ? filtered = skill[0].profiles : null
     } else if (this.props.filter === "location") {
         filtered = profiles.filter(profile => profile.current_location.toLowerCase().includes(query))
     }
@@ -78,7 +78,7 @@ class SearchInput extends Component {
               <SearchResults profile={profile} />
             )}
           </Menu>
-        
+
       }
     </div>
 
